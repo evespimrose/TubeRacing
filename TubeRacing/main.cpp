@@ -12,13 +12,9 @@ GLuint fragmentShader;
 
 GLuint ShaderProgram;
 
-bool LightRotOn = 0;
-
 float CameraX = 0;
 float CameraZ = 0;
 float CameraRotate = 0;
-
-float MoonRotate = 0;
 
 float ambient = 0.6;
 
@@ -219,6 +215,7 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 	int AmbientLocation = glGetUniformLocation(ShaderProgram, "ambientLight");
 	glUniform1f(AmbientLocation, ambient);
 
+	player.Render();
 
 	glutSwapBuffers(); // 화면에 출력하기
 }
