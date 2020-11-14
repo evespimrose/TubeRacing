@@ -20,3 +20,7 @@ void Player::Key_Input(unsigned char key)
 void Player::sKey_Input(int key)
 {
 }
+
+void Player::InitBuffer()
+{
+}

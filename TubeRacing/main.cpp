@@ -161,7 +161,7 @@ void make_fragmentShaders()
 
 void InitBuffer()
 {
-	
+	player.InitBuffer();
 }
 
 void InitShader()
