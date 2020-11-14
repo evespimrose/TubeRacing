@@ -2,4 +2,9 @@
 
 Player::Player()
 {
+
+}
+
+void Player::Move()
+{
 }

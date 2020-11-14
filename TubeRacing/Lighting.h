@@ -6,5 +6,6 @@ class Lighting
 {
 private:
 
+
 public:
 };

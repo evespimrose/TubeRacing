@@ -12,6 +12,12 @@ private:
 	float ypos;
 	float zpos;
 
+	float dx;
+	float dy;
+	float dz;
+
+	float acc;
+
 	//위치 행렬, 회전 행렬
 	glm::mat4 PosMat;
 	glm::mat4 RotMat;
@@ -22,5 +28,5 @@ private:
 
 public:
 	Player();
-
+	void Move();
 };
