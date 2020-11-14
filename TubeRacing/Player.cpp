@@ -24,3 +24,7 @@ void Player::sKey_Input(int key)
 void Player::InitBuffer()
 {
 }
+
+void Player::Render()
+{
+}
