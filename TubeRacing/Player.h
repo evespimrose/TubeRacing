@@ -17,10 +17,12 @@ private:
 	float dz;
 
 	float acc;
+	float dec;
 
-	//위치 행렬, 회전 행렬
+	//위치 행렬, 회전 행렬, 스케일 행렬
 	glm::mat4 PosMat;
 	glm::mat4 RotMat;
+	glm::mat4 SclMat;
 
 	GLuint VAO;
 	GLuint VBO;
@@ -29,4 +31,7 @@ private:
 public:
 	Player();
 	void Move();
+	void Update();
+	void Key_Input(unsigned char key);
+	void sKey_Input(int key);
 };

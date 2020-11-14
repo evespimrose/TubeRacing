@@ -1,4 +1,5 @@
 #include "framework.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ float MoonRotate = 0;
 
 float ambient = 0.6;
 
+Player player;
 
 GLfloat Cube[8][3] = {
 	{-0.2f, -0.2f, -0.2f}, // 0
@@ -223,12 +225,18 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 
 GLvoid Keyboard(unsigned char key, int x, int y)
 {
+	player.Key_Input(key);
 	switch (key)
 	{
 	case 'Q':
 		exit(0);
 		break;
 	}
+}
+
+GLvoid sKeyboard(int key, int x, int y)
+{
+	player.sKey_Input(key);
 }
 
 GLvoid Timer(int Value)
@@ -264,6 +272,7 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	InitBuffer();
 
 	glutTimerFunc(1, Timer, 0);
+	glutSpecialFunc(sKeyboard);
 	glutKeyboardFunc(Keyboard);
 	glutDisplayFunc(drawScene);
 	glutMainLoop();
