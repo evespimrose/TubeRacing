@@ -1,11 +1,40 @@
 #include "framework.h"
 #include "Camera.h"
 
+<<<<<<< HEAD
 Camera::Camera()
 {
 	posx = 0.0f;
 	posy = 3.0f;
 	posz = 5.0f;
+	AT = glm::vec3(1.0f);
+=======
+void Camera::ZoomOut(int dz)
+{
+	int speed = dz;
+	float zoom = 0.03f;
+	if (speed > )
+	{
+		posz += zoom * speed;
+		if (posz > 2.0f)
+		{
+			speed = 0;
+		}
+	}
+}
+void Camera::ZoomIn(int dz)
+{
+	int speed = 1000;
+	float zoom = 0.0003f;
+	if (dz < )
+	{
+		posz -= zoom * speed;
+		zoom += 0.0001f;
+		if (posz > 2.0f)
+		{
+			speed = 0;
+		}
+	}
 }
 
 void Camera::Render(GLuint ShaderProgram)

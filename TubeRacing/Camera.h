@@ -13,4 +13,6 @@ private:
 public:
 	Camera();
 	void Render(GLuint ShaderProgram);
+	void ZoomOut(int dz);
+	void ZoomIn(int dz);
 };
