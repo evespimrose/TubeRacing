@@ -169,7 +169,7 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glFrontFace(GL_CCW);
 	glewInit();
 

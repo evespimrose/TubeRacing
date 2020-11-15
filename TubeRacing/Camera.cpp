@@ -5,6 +5,8 @@ Camera::Camera()
 	posx = 0.0f;
 	posy = 3.0f;
 	posz = 5.0f;
+
+	pSpeed = 0.0f;
 }
 
 void Camera::Render(GLuint ShaderProgram)
@@ -26,4 +28,9 @@ void Camera::Render(GLuint ShaderProgram)
 
 	unsigned int viewLocation = glGetUniformLocation(ShaderProgram, "viewTransform");
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
+}
+
+void Camera::setpSpeed(float s)
+{
+	pSpeed = s;
 }
