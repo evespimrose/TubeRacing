@@ -6,7 +6,7 @@ Camera::Camera()
 	posx = 0.0f;
 	posy = 3.0f;
 	posz = 5.0f;
-	AT = glm::vec3(1.0f);
+	AT = glm::vec3(0.0f);
 }
 
 
