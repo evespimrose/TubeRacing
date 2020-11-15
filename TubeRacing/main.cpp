@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Player.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -12,14 +13,10 @@ GLuint fragmentShader;
 
 GLuint ShaderProgram;
 
-float CameraX = 0;
-float CameraZ = 0;
-float CameraRotate = 0;
-
 float ambient = 0.6;
 
 Player player;
-
+Camera camera;
 
 float Rotate = 0;
 
@@ -128,8 +125,8 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 	// 원근 투영
 	glUseProgram(ShaderProgram);
 	
-
-	player.Render();
+	camera.Render(ShaderProgram);
+	player.Render(ShaderProgram);
 
 	glutSwapBuffers(); // 화면에 출력하기
 }
