@@ -2,9 +2,11 @@
 
 void Player::Init()
 {
+	Left_Keydown = 0;
+	Right_Keydown = 0;
 
 	PosMat = glm::mat4(1.0f);
-	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 1.0f, 0.0f));
+	PosMat = glm::translate(PosMat, glm::vec3(0.0f, -1.0f, 0.0f));
 
 	rad = 0.0f;
 	RotMat = glm::mat4(1.0f);
@@ -53,9 +55,11 @@ void Player::Init()
 
 void Player::Move(int key)
 {
-	if (key == GLUT_KEY_LEFT)
+	if (key == GLUT_KEY_RIGHT)
 	{
-		rad += 0.1f;
+		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		rad += 1.5f;
 		if (rad > 360)
 		{
 			rad -= 360;
@@ -63,9 +67,11 @@ void Player::Move(int key)
 
 		RotMat = glm::rotate(RotMat, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
-	else if (key == GLUT_KEY_RIGHT)
+	else if (key == GLUT_KEY_LEFT)
 	{
-		rad -= 0.1f;
+		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		rad -= 1.5f;
 		if (rad < 0)
 		{
 			rad += 360;

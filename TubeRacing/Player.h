@@ -89,4 +89,7 @@ public:
 	void Render(GLuint ShaderProgram);
 	glm::vec3 getSpeed();
 	glm::vec3 getPosition();
+
+	bool Left_Keydown;
+	bool Right_Keydown;
 };
