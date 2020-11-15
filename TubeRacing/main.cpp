@@ -1,6 +1,5 @@
 #include "framework.h"
 #include "Player.h"
-#include "Camera.h"
 
 using namespace std;
 
@@ -16,7 +15,6 @@ GLuint ShaderProgram;
 float ambient = 0.6f;
 
 Player player;
-Camera camera;
 
 float Rotate = 0;
 
@@ -116,7 +114,6 @@ GLvoid drawScene()
 	// 원근 투영
 	glUseProgram(ShaderProgram);
 	
-	camera.Render(ShaderProgram);
 	player.Render(ShaderProgram);
 
 	glutSwapBuffers(); // 화면에 출력하기
@@ -135,11 +132,16 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 
 GLvoid sKeyboard(int key, int x, int y)
 {
-	player.sKey_Input(key);
+	player.sKey_Input(key, TRUE);
+}
+GLvoid sKeyboardUp(int key, int x, int y)
+{
+	player.sKey_Input(key, FALSE);
 }
 
 GLvoid Timer(int Value)
 {
+	player.Update();
 	glutPostRedisplay();
 	glutTimerFunc(1, Timer, 0);
 }
@@ -163,7 +165,7 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glFrontFace(GL_CCW);
 	glewInit();
 
@@ -175,6 +177,7 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glutTimerFunc(1, Timer, 0);
 	glutSpecialFunc(sKeyboard);
 	glutKeyboardFunc(Keyboard);
+	glutSpecialUpFunc(sKeyboardUp);
 	glutDisplayFunc(drawScene);
 	glutMainLoop();
 }

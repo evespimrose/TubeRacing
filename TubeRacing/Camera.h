@@ -8,6 +8,8 @@ private:
 	float posy;
 	float posz;
 
+	float pSpeed;
+
 	glm::vec3 AT;
 
 public:
@@ -15,4 +17,5 @@ public:
 	void Render(GLuint ShaderProgram);
 	void ZoomOut(int dz);
 	void ZoomIn(int dz);
+	void setpSpeed(float s);
 };

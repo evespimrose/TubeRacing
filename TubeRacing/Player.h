@@ -1,29 +1,34 @@
 #pragma once
-#include "framework.h"
 #include "Camera.h"
 
 class Player
 {
 private:
 	Camera camera;
-	//¹æÇâ º¤ÅÍ
+    
+	//ë°©í–¥ ë²¡í„°
 	glm::vec3 dirVec;
 
 	float rad;
 
-	//À§Ä¡°ª
+	const float specular = 1.0f;
+	const float diffuse = 0.1f;
+	const float shininess = 128;
+
+	bool Left_keyDown;
+	bool Right_keyDown;
+
+	//ìœ„ì¹˜ê°’
 	float posx;
 	float posy;
 	float posz;
 
-	float dx;
-	float dy;
-	float dz;
+	float Speed;
 
 	float acc;
 	float dec;
 
-	//À§Ä¡ Çà·Ä, È¸Àü Çà·Ä, ½ºÄÉÀÏ Çà·Ä
+	//ìœ„ì¹˜ í–‰ë ¬, íšŒì „ í–‰ë ¬, ìŠ¤ì¼€ì¼ í–‰ë ¬
 	glm::mat4 PosMat;
 	glm::mat4 RotMat;
 	glm::mat4 SclMat;
@@ -84,11 +89,11 @@ private:
 
 public:
 	void Init();
-	void Move(int key);
+	void Move();
 	void Update();
 	void Key_Input(unsigned char key);
-	void sKey_Input(int key);
+	void sKey_Input(int key, bool state);
 	void Render(GLuint ShaderProgram);
-	glm::vec3 getSpeed();
-	glm::vec3 getPosition();
+	float getSpeed();
+	glm::mat4 getPosition();
 };

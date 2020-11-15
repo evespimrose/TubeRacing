@@ -2,9 +2,11 @@
 
 void Player::Init()
 {
+	Left_keyDown = 0;
+	Right_keyDown = 0;
 
 	PosMat = glm::mat4(1.0f);
-	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 1.0f, 0.0f));
+	PosMat = glm::translate(PosMat, glm::vec3(0.0f, -1.0f, 0.0f));
 
 	rad = 0.0f;
 	RotMat = glm::mat4(1.0f);
@@ -14,9 +16,7 @@ void Player::Init()
 
 	dirVec = glm::vec3(0.0f, 0.0f, 1.0f);
 
-	dx = 0;
-	dy = 0;
-	dz = 0;
+	Speed = 1.0f;
 
 	posx = 0;
 	posy = 0;
@@ -51,11 +51,13 @@ void Player::Init()
 	glEnableVertexAttribArray(3);
 }
 
-void Player::Move(int key)
+void Player::Move()
 {
-	if (key == GLUT_KEY_LEFT)
+	if (Right_keyDown)
 	{
-		rad += 0.1f;
+		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		rad += 1.5;
 		if (rad > 360)
 		{
 			rad -= 360;
@@ -63,9 +65,12 @@ void Player::Move(int key)
 
 		RotMat = glm::rotate(RotMat, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
-	else if (key == GLUT_KEY_RIGHT)
+
+	if (Left_keyDown)
 	{
-		rad -= 0.1f;
+		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		rad -= 1.5f;
 		if (rad < 0)
 		{
 			rad += 360;
@@ -77,39 +82,64 @@ void Player::Move(int key)
 
 void Player::Update()
 {
-	camera.setSpeed(Speed);
-
+	camera.setpSpeed(Speed);
+	Move();
 }
 
 void Player::Key_Input(unsigned char key)
 {
 }
 
-void Player::sKey_Input(int key)
+void Player::sKey_Input(int key, bool state)
 {
-	Move(key);
+	if (key == GLUT_KEY_RIGHT)
+	{
+		if(state)
+			Right_keyDown = 1;
+
+		else
+			Right_keyDown = 0;
+	}
+
+	if (key == GLUT_KEY_LEFT)
+	{
+		if (state)
+			Left_keyDown = 1;
+
+		else
+			Left_keyDown = 0;
+	}
 }
 
 void Player::Render(GLuint ShaderProgram)
 {
 	camera.Render(ShaderProgram);
+
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
 
 	glm::mat4 TR;
 	TR = RotMat * PosMat* SclMat;
 
+	unsigned int specularLocation = glGetUniformLocation(ShaderProgram, "spec_strength");
+	unsigned int diffuseLocation = glGetUniformLocation(ShaderProgram, "diffuse_strength");
+	unsigned int shininessLocation = glGetUniformLocation(ShaderProgram, "shininess");
+
+	glUniformMatrix4fv(specularLocation, 1, GL_FALSE, &specular);
+	glUniformMatrix4fv(diffuseLocation, 1, GL_FALSE, &diffuse);
+	glUniformMatrix4fv(shininessLocation, 1, GL_FALSE, &shininess);
+
+
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
 	glBindVertexArray(VAO);
-
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }
 
-glm::vec3 Player::getSpeed()
+float Player::getSpeed()
 {
-	return glm::vec3(dx, dy, dz);
+	return Speed;
 }
 
-glm::vec3 Player::getPosition()
+glm::mat4 Player::getPosition()
 {
-	return glm::vec3(posx, posy, posz);
+	return RotMat * PosMat;
 }

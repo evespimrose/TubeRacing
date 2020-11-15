@@ -1,4 +1,3 @@
-#include "framework.h"
 #include "Camera.h"
 
 Camera::Camera()
@@ -6,17 +5,25 @@ Camera::Camera()
 	posx = 0.0f;
 	posy = 3.0f;
 	posz = 5.0f;
+  
 	AT = glm::vec3(0.0f);
+}
+
+void Camera::setpSpeed(float s)
+{
+	pSpeed = s;
 }
 
 void Camera::setSpeed(float speed)
 {
-	float zoom = 0.0003f; // �ܾƿ� �ӵ�
+	float zoom = 0.0003f; // ÁÜ¾Æ¿ô ¼Óµµ
 	if (speed > 0.0f && posz < 10.0f)
 	{
 		posz += speed * zoom;
 		posy += speed * zoom * 0.5;
 	}
+
+	pSpeed = 0.0f;
 }
 
 void Camera::Render(GLuint ShaderProgram)
