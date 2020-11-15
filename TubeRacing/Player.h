@@ -84,6 +84,5 @@ public:
 	void Update();
 	void Key_Input(unsigned char key);
 	void sKey_Input(int key);
-	void InitBuffer();
 	void Render(GLuint ShaderProgram);
 };

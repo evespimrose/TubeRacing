@@ -173,7 +173,6 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glewInit();
 
 	InitShader();
-	InitBuffer();
 
 	glutTimerFunc(1, Timer, 0);
 	glutSpecialFunc(sKeyboard);
