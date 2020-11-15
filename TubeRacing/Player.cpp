@@ -2,8 +2,8 @@
 
 void Player::Init()
 {
-	Left_Keydown = 0;
-	Right_Keydown = 0;
+	Left_keyDown = 0;
+	Right_keyDown = 0;
 
 	PosMat = glm::mat4(1.0f);
 	PosMat = glm::translate(PosMat, glm::vec3(0.0f, -1.0f, 0.0f));
@@ -51,13 +51,13 @@ void Player::Init()
 	glEnableVertexAttribArray(3);
 }
 
-void Player::Move(int key)
+void Player::Move()
 {
-	if (key == GLUT_KEY_RIGHT)
+	if (Right_keyDown)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		rad += 1.5 * Speed;
+		rad += 1.5;
 		if (rad > 360)
 		{
 			rad -= 360;
@@ -65,11 +65,12 @@ void Player::Move(int key)
 
 		RotMat = glm::rotate(RotMat, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
-	else if (key == GLUT_KEY_LEFT)
+
+	if (Left_keyDown)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		rad -= 1.5f * Speed;
+		rad -= 1.5f;
 		if (rad < 0)
 		{
 			rad += 360;
@@ -81,15 +82,32 @@ void Player::Move(int key)
 
 void Player::Update()
 {
+	Move();
 }
 
 void Player::Key_Input(unsigned char key)
 {
 }
 
-void Player::sKey_Input(int key)
+void Player::sKey_Input(int key, bool state)
 {
-	Move(key);
+	if (key == GLUT_KEY_RIGHT)
+	{
+		if(state)
+			Right_keyDown = 1;
+
+		else
+			Right_keyDown = 0;
+	}
+
+	if (key == GLUT_KEY_LEFT)
+	{
+		if (state)
+			Left_keyDown = 1;
+
+		else
+			Left_keyDown = 0;
+	}
 }
 
 void Player::Render(GLuint ShaderProgram)

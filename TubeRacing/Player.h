@@ -9,6 +9,9 @@ private:
 
 	float rad;
 
+	bool Left_keyDown;
+	bool Right_keyDown;
+
 	//À§Ä¡°ª
 	float posx;
 	float posy;
@@ -80,14 +83,11 @@ private:
 
 public:
 	void Init();
-	void Move(int key);
+	void Move();
 	void Update();
 	void Key_Input(unsigned char key);
-	void sKey_Input(int key);
+	void sKey_Input(int key, bool state);
 	void Render(GLuint ShaderProgram);
 	float getSpeed();
 	glm::mat4 getPosition();
-
-	bool Left_Keydown;
-	bool Right_Keydown;
 };

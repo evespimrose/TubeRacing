@@ -139,11 +139,16 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 
 GLvoid sKeyboard(int key, int x, int y)
 {
-	player.sKey_Input(key);
+	player.sKey_Input(key, TRUE);
+}
+GLvoid sKeyboardUp(int key, int x, int y)
+{
+	player.sKey_Input(key, FALSE);
 }
 
 GLvoid Timer(int Value)
 {
+	player.Update();
 	glutPostRedisplay();
 	glutTimerFunc(1, Timer, 0);
 }
@@ -177,6 +182,7 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glutTimerFunc(1, Timer, 0);
 	glutSpecialFunc(sKeyboard);
 	glutKeyboardFunc(Keyboard);
+	glutSpecialUpFunc(sKeyboardUp);
 	glutDisplayFunc(drawScene);
 	glutMainLoop();
 }
