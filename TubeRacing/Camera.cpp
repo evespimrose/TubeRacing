@@ -1,14 +1,14 @@
 #include "framework.h"
 #include "Camera.h"
 
-<<<<<<< HEAD
 Camera::Camera()
 {
 	posx = 0.0f;
 	posy = 3.0f;
 	posz = 5.0f;
 	AT = glm::vec3(1.0f);
-=======
+
+}
 void Camera::ZoomOut(int dz)
 {
 	int speed = dz;
