@@ -13,7 +13,7 @@ GLuint fragmentShader;
 
 GLuint ShaderProgram;
 
-float ambient = 0.6;
+float ambient = 0.6f;
 
 Player player;
 Camera camera;
@@ -94,11 +94,6 @@ void make_fragmentShaders()
 	}
 }
 
-void InitBuffer()
-{
-	player.InitBuffer();
-}
-
 void InitShader()
 {
 	make_vertexShaders();
@@ -145,6 +140,7 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 GLvoid sKeyboard(int key, int x, int y)
 {
 	player.sKey_Input(key);
+	
 }
 
 GLvoid Timer(int Value)

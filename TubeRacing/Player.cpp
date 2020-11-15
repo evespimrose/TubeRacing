@@ -63,10 +63,6 @@ void Player::sKey_Input(int key)
 {
 }
 
-void Player::InitBuffer()
-{
-}
-
 void Player::Render(GLuint ShaderProgram)
 {
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
