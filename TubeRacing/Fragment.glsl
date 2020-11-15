@@ -10,7 +10,7 @@ uniform vec3 lightPos;
 uniform vec3 viewPos;
 uniform vec3 lightColor;
 
-uniform float shininess;
+uniform int shininess;
 uniform float diffuse_strength;
 uniform float spec_strength;
 
@@ -30,23 +30,17 @@ void main()
 	vec3 lightDir;
 	lightDir = normalize (lightPos - FragPos);
 
-	float diffuse_strength = 0.5;
-
 	float diffuseLight;
 	diffuseLight = max (dot(normalVector, lightDir), 0.0);
 
 	vec3 diffuse;
 	diffuse = diffuseLight * resultColor * diffuse_strength;
 
-	int shininess = 32;
-
 	vec3 viewDir;
 	viewDir = normalize (viewPos - FragPos);
 
 	vec3 reflectDir;
 	reflectDir = reflect (-lightDir, normalVector);
-
-	float spec_strength = 0.5;
 
 	float specularLight;
 	specularLight = max (dot(viewDir, reflectDir), 0.0);
