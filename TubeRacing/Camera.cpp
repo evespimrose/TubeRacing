@@ -9,35 +9,15 @@ Camera::Camera()
 	AT = glm::vec3(0.0f);
 }
 
-
-
-/*void Camera::ZoomOut(int dz)
+void Camera::setSpeed(float speed)
 {
-	int speed = dz;
-	float zoom = 0.03f;
-	if (speed > )
+	float zoom = 0.0003f;
+	if (speed > 0.0f && posz < 10.0f)
 	{
-		posz += zoom * speed;
-		if (posz > 2.0f)
-		{
-			speed = 0;
-		}
+		posz += speed * zoom;
+		posy += speed * zoom * 0.5;
 	}
 }
-void Camera::ZoomIn(int dz)
-{
-	int speed = 1000;
-	float zoom = 0.0003f;
-	if (dz < )
-	{
-		posz -= zoom * speed;
-		zoom += 0.0001f;
-		if (posz > 2.0f)
-		{
-			speed = 0;
-		}
-	}
-}*/
 
 void Camera::Render(GLuint ShaderProgram)
 {

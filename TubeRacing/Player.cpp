@@ -77,6 +77,8 @@ void Player::Move(int key)
 
 void Player::Update()
 {
+	camera.setSpeed(Speed);
+
 }
 
 void Player::Key_Input(unsigned char key)
@@ -90,6 +92,7 @@ void Player::sKey_Input(int key)
 
 void Player::Render(GLuint ShaderProgram)
 {
+	camera.Render(ShaderProgram);
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
 
 	glm::mat4 TR;

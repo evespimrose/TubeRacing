@@ -1,9 +1,11 @@
 #pragma once
 #include "framework.h"
+#include "Camera.h"
 
 class Player
 {
 private:
+	Camera camera;
 	//πÊ«‚ ∫§≈Õ
 	glm::vec3 dirVec;
 
