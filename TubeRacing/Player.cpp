@@ -1,12 +1,12 @@
 #include "Player.h"
 
-Player::Player()
+void Player::Init()
 {
 	PosMat = glm::mat4(1.0f);
 	RotMat = glm::mat4(1.0f);
 
 	SclMat = glm::mat4(1.0f);
-	glm::scale(SclMat, glm::vec3(1.0f, 0.5f, 1.5f));
+	SclMat = glm::scale(SclMat, glm::vec3(1.0f, 0.3f, 2.0f));
 
 	dirVec = glm::vec3(0.0f, 0.0f, 1.0f);
 
@@ -14,9 +14,9 @@ Player::Player()
 	dy = 0;
 	dz = 0;
 
-	xpos = 0;
-	ypos = 0;
-	zpos = 0;
+	posx = 0;
+	posy = 0;
+	posz = 0;
 
 	acc = 0;
 	dec = 0;
@@ -72,4 +72,16 @@ void Player::Render(GLuint ShaderProgram)
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
 	glBindVertexArray(VAO);
+
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+}
+
+glm::vec3 Player::getSpeed()
+{
+	return glm::vec3(dx, dy, dz);
+}
+
+glm::vec3 Player::getPosition()
+{
+	return glm::vec3(posx, posy, posz);
 }

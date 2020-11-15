@@ -11,5 +11,6 @@ private:
 	glm::vec3 AT;
 
 public:
+	Camera();
 	void Render(GLuint ShaderProgram);
 };

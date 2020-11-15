@@ -140,7 +140,6 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 GLvoid sKeyboard(int key, int x, int y)
 {
 	player.sKey_Input(key);
-	
 }
 
 GLvoid Timer(int Value)
@@ -168,12 +167,12 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glFrontFace(GL_CCW);
 	glewInit();
 
 	InitShader();
-	InitBuffer();
+	player.Init();
 
 	glutTimerFunc(1, Timer, 0);
 	glutSpecialFunc(sKeyboard);

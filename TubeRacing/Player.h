@@ -8,9 +8,9 @@ private:
 	glm::vec3 dirVec;
 
 	//À§Ä¡°ª
-	float xpos;
-	float ypos;
-	float zpos;
+	float posx;
+	float posy;
+	float posz;
 
 	float dx;
 	float dy;
@@ -79,11 +79,12 @@ private:
 	};
 
 public:
-	Player();
+	void Init();
 	void Move();
 	void Update();
 	void Key_Input(unsigned char key);
 	void sKey_Input(int key);
-	void InitBuffer();
 	void Render(GLuint ShaderProgram);
+	glm::vec3 getSpeed();
+	glm::vec3 getPosition();
 };

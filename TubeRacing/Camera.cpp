@@ -1,6 +1,13 @@
 #include "framework.h"
 #include "Camera.h"
 
+Camera::Camera()
+{
+	posx = 0.0f;
+	posy = 3.0f;
+	posz = 5.0f;
+}
+
 void Camera::Render(GLuint ShaderProgram)
 {
 	// 원근 투영
