@@ -15,8 +15,6 @@
 #include <stdlib.h>
 #include <vector>
 #include <math.h>
-#define TRUE 1
-#define FALSE 0
 
 
 void ReadObj(FILE* objFile, glm::vec4*& ObjVert, glm::vec4*& objNormal, glm::vec4*& ObjElementVec, int& Index, int& NormalIndex, int& ElementIndex)
