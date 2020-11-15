@@ -11,7 +11,7 @@ Camera::Camera()
 
 void Camera::setSpeed(float speed)
 {
-	float zoom = 0.0003f;
+	float zoom = 0.0003f; // ÁÜ¾Æ¿ô ¼Óµµ
 	if (speed > 0.0f && posz < 10.0f)
 	{
 		posz += speed * zoom;
