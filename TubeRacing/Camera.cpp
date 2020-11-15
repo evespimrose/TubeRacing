@@ -1,6 +1,16 @@
 #include "framework.h"
 #include "Camera.h"
 
+void Camera::Zoomout(int dz)
+{
+	if(dz > )
+	posz += 0.03 * dz;
+	if (posz > 2.0f)
+	{
+		dz = 0;
+	}
+}
+
 void Camera::Render(GLuint ShaderProgram)
 {
 	// 원근 투영

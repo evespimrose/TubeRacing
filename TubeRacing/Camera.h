@@ -12,4 +12,5 @@ private:
 
 public:
 	void Render(GLuint ShaderProgram);
+	void Fast(int speed);
 };
