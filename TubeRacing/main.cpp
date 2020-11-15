@@ -20,64 +20,6 @@ float ambient = 0.6;
 
 Player player;
 
-GLfloat Cube[8][3] = {
-	{-0.2f, -0.2f, -0.2f}, // 0
-	{0.2f, -0.2f, -0.2f},  // 1
-	{0.2f, 0.2f, -0.2f},   // 2
-	{-0.2f, 0.2f, -0.2f},  // 3
-
-	{-0.2f, -0.2f, 0.2f},  // 4
-	{0.2f, -0.2f, 0.2f},   // 5
-	{0.2f, 0.2f, 0.2f},    // 6
-	{-0.2f, 0.2f, 0.2f}    // 7
-};
-
-GLfloat CubeNormal[8][3] = {
-	{-1, -1, -1},
-	{1, -1, -1},
-	{1, 1, -1},
-	{-1, 1, -1},
-	{-1, -1, 1},
-	{1, -1, 1},
-	{1, 1, 1},
-	{-1, 1, 1}
-};
-
-GLint CubeIndices[12][3] = {
-	{1, 0, 2},
-	{2, 0, 3},
-	{7, 0, 4},
-	{3, 0, 7},
-	{0, 1, 5},
-	{4, 0, 5},
-	{7, 4, 6},
-	{6, 4, 5},
-	{5, 1, 2},
-	{5, 2, 6},
-	{2, 3, 6},
-	{3, 7, 6}
-};
-
-GLfloat CubeColor[8][3] = {
-	{0, 0, 1},
-	{0, 0, 1},
-	{0, 0, 1},
-	{0, 0, 1},
-	{0, 0, 1},
-	{0, 0, 1},
-	{0, 0, 1},
-	{0, 0, 1}
-};
-GLfloat CubeColorA[8][4] = {
-	{0, 0, 1, 0.5},
-	{0, 0, 1, 0.5},
-	{0, 0, 1, 0.5},
-	{0, 0, 1, 0.5},
-	{0, 0, 1, 0.5},
-	{0, 0, 1, 0.5},
-	{0, 0, 1, 0.5},
-	{0, 0, 1, 0.5}
-};
 
 float Rotate = 0;
 
@@ -185,35 +127,7 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 
 	// 원근 투영
 	glUseProgram(ShaderProgram);
-	glm::mat4 Projection = glm::mat4(1.0f);
-	Projection = glm::perspective(glm::radians(45.0f), (float)1000 / (float)1000, 0.1f, 100.0f);
-	unsigned int ProjectionLocation = glGetUniformLocation(ShaderProgram, "projectionTransform");;
-	glUniformMatrix4fv(ProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
-
-	// 카메라 초기화
-	glm::vec3 cameraPos = glm::vec3(CameraX, 2.0f, 8.0f + CameraZ);
-	glm::vec3 cameraDirection = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 view = glm::mat4(1.0f);
-
-	view = glm::lookAt(cameraPos, cameraDirection, cameraUp);
-	view = glm::rotate(view, glm::radians(CameraRotate), glm::vec3(0.0f, 1.0f, 0.0f));
-
-	unsigned int viewLocation = glGetUniformLocation(ShaderProgram, "viewTransform");
-	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
-
-	//조명 값 전달
-	int lightPosLocation = glGetUniformLocation(ShaderProgram, "lightPos");
-	glUniform3f(lightPosLocation, 0, 0, 0);
-
-	int lightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
-	glUniform3f(lightColorLocation, 1, 1, 1);
-
-	int viewPosLocation = glGetUniformLocation(ShaderProgram, "viewPos");
-	glUniform3f(viewPosLocation, CameraX, 2.0f, 3.0f + CameraZ);
-
-	int AmbientLocation = glGetUniformLocation(ShaderProgram, "ambientLight");
-	glUniform1f(AmbientLocation, ambient);
+	
 
 	player.Render();
 

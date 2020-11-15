@@ -4,7 +4,9 @@ Player::Player()
 {
 	PosMat = glm::mat4(1.0f);
 	RotMat = glm::mat4(1.0f);
+
 	SclMat = glm::mat4(1.0f);
+	glm::scale(SclMat, glm::vec3(1.0f, 0.5f, 1.5f));
 
 	dirVec = glm::vec3(0.0f, 0.0f, 1.0f);
 
@@ -65,6 +67,13 @@ void Player::InitBuffer()
 {
 }
 
-void Player::Render()
+void Player::Render(GLuint ShaderProgram)
 {
+	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
+
+	glm::mat4 TR;
+	TR = SclMat * RotMat * PosMat;
+
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
+	glBindVertexArray(VAO);
 }
