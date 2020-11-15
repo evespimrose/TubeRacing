@@ -54,7 +54,6 @@ void make_vertexShaders()
 {
 	GLchar* vertexShaderSource = filetobuf("Vertex.glsl");
 
-	//--- 버텍스 세이더 읽어 저장하고 컴파일 하기
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
@@ -76,7 +75,6 @@ void make_fragmentShaders()
 {
 	GLchar* fragmentShaderSource = filetobuf("Fragment.glsl");;
 
-	//--- 프래그먼트 세이더 읽어 저장하고 컴파일하기
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
@@ -105,14 +103,12 @@ void InitShader()
 	glAttachShader(ShaderProgram, fragmentShader);
 	glLinkProgram(ShaderProgram);
 
-	//--- 세이더 삭제하기
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
-	//--- Shader Program 사용하기
 	glUseProgram(ShaderProgram);
 }
 
-GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
+GLvoid drawScene()
 {
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -172,7 +168,9 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glewInit();
 
 	InitShader();
+
 	player.Init();
+
 
 	glutTimerFunc(1, Timer, 0);
 	glutSpecialFunc(sKeyboard);
