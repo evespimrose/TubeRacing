@@ -86,7 +86,7 @@ public:
 	void sKey_Input(int key);
 	void Render(GLuint ShaderProgram);
 	float getSpeed();
-	glm::vec3 getPosition();
+	glm::mat4 getPosition();
 
 	bool Left_Keydown;
 	bool Right_Keydown;
