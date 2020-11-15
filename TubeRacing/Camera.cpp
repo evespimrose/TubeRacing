@@ -9,6 +9,8 @@ Camera::Camera()
 	AT = glm::vec3(1.0f);
 }
 
+
+
 /*void Camera::ZoomOut(int dz)
 {
 	int speed = dz;
