@@ -1,6 +1,5 @@
 #include "framework.h"
 #include "Player.h"
-#include "Camera.h"
 
 using namespace std;
 
@@ -16,7 +15,6 @@ GLuint ShaderProgram;
 float ambient = 0.6f;
 
 Player player;
-Camera camera;
 
 float Rotate = 0;
 
@@ -120,7 +118,6 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 	// 원근 투영
 	glUseProgram(ShaderProgram);
 	
-	camera.Render(ShaderProgram);
 	player.Render(ShaderProgram);
 
 	glutSwapBuffers(); // 화면에 출력하기
