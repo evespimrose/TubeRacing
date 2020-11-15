@@ -2,7 +2,11 @@
 
 void Player::Init()
 {
+
 	PosMat = glm::mat4(1.0f);
+	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	rad = 0.0f;
 	RotMat = glm::mat4(1.0f);
 
 	SclMat = glm::mat4(1.0f);
@@ -47,8 +51,28 @@ void Player::Init()
 	glEnableVertexAttribArray(3);
 }
 
-void Player::Move()
+void Player::Move(int key)
 {
+	if (key == GLUT_KEY_LEFT)
+	{
+		rad += 0.1f;
+		if (rad > 360)
+		{
+			rad -= 360;
+		}
+
+		RotMat = glm::rotate(RotMat, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
+	}
+	else if (key == GLUT_KEY_RIGHT)
+	{
+		rad -= 0.1f;
+		if (rad < 0)
+		{
+			rad += 360;
+		}
+
+		RotMat = glm::rotate(RotMat, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
+	}
 }
 
 void Player::Update()
@@ -61,6 +85,7 @@ void Player::Key_Input(unsigned char key)
 
 void Player::sKey_Input(int key)
 {
+	Move(key);
 }
 
 void Player::Render(GLuint ShaderProgram)
@@ -68,7 +93,7 @@ void Player::Render(GLuint ShaderProgram)
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
 
 	glm::mat4 TR;
-	TR = SclMat * RotMat * PosMat;
+	TR = RotMat * PosMat* SclMat;
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
 	glBindVertexArray(VAO);

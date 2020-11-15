@@ -7,6 +7,8 @@ private:
 	//방향 벡터
 	glm::vec3 dirVec;
 
+	float rad;
+
 	//위치값
 	float posx;
 	float posy;
@@ -80,7 +82,7 @@ private:
 
 public:
 	void Init();
-	void Move();
+	void Move(int key);
 	void Update();
 	void Key_Input(unsigned char key);
 	void sKey_Input(int key);
