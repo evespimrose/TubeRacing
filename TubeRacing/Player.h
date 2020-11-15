@@ -14,9 +14,7 @@ private:
 	float posy;
 	float posz;
 
-	float dx;
-	float dy;
-	float dz;
+	float Speed;
 
 	float acc;
 	float dec;
@@ -87,7 +85,7 @@ public:
 	void Key_Input(unsigned char key);
 	void sKey_Input(int key);
 	void Render(GLuint ShaderProgram);
-	glm::vec3 getSpeed();
+	float getSpeed();
 	glm::vec3 getPosition();
 
 	bool Left_Keydown;

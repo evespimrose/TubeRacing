@@ -16,9 +16,7 @@ void Player::Init()
 
 	dirVec = glm::vec3(0.0f, 0.0f, 1.0f);
 
-	dx = 0;
-	dy = 0;
-	dz = 0;
+	Speed = 1.0f;
 
 	posx = 0;
 	posy = 0;
@@ -59,7 +57,7 @@ void Player::Move(int key)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		rad += 1.5f;
+		rad += 1.5 * Speed;
 		if (rad > 360)
 		{
 			rad -= 360;
@@ -71,7 +69,7 @@ void Player::Move(int key)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		rad -= 1.5f;
+		rad -= 1.5f * Speed;
 		if (rad < 0)
 		{
 			rad += 360;
@@ -107,9 +105,9 @@ void Player::Render(GLuint ShaderProgram)
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }
 
-glm::vec3 Player::getSpeed()
+float Player::getSpeed()
 {
-	return glm::vec3(dx, dy, dz);
+	return Speed;
 }
 
 glm::vec3 Player::getPosition()
