@@ -9,6 +9,7 @@ Camera::Camera()
 	AT = glm::vec3(1.0f);
 
 }
+
 void Camera::ZoomOut(int dz)
 {
 	int speed = dz;
@@ -39,14 +40,14 @@ void Camera::ZoomIn(int dz)
 
 void Camera::Render(GLuint ShaderProgram)
 {
-	// 원근 투영
+	
 	glUseProgram(ShaderProgram);
 	glm::mat4 Projection = glm::mat4(1.0f);
 	Projection = glm::perspective(glm::radians(45.0f), (float)1000 / (float)1000, 0.1f, 100.0f);
 	unsigned int ProjectionLocation = glGetUniformLocation(ShaderProgram, "projectionTransform");;
 	glUniformMatrix4fv(ProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
 
-	// 카메라 초기화
+	
 	glm::vec3 cameraPos = glm::vec3(posx, posy, posz);
 	glm::vec3 cameraDirection = AT;
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);

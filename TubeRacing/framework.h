@@ -14,9 +14,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include <vector>
-<<<<<<< HEAD
-#include <math.h>
-=======
 #include <math.h>
 #define TRUE 1
 #define FALSE 0
@@ -24,7 +21,6 @@
 
 void ReadObj(FILE* objFile, glm::vec4*& ObjVert, glm::vec4*& objNormal, glm::vec4*& ObjElementVec, int& Index, int& NormalIndex, int& ElementIndex)
 {
-	//--- 1. 전체 버텍스 개수 및 삼각형 개수 세기
 	char count[100];
 	int vertexNum = 0;
 	int faceNum = 0;
@@ -38,17 +34,15 @@ void ReadObj(FILE* objFile, glm::vec4*& ObjVert, glm::vec4*& objNormal, glm::vec
 			NormalNum += 1;
 		else if (count[0] == 'f' && count[1] == '\0')
 			faceNum += 1;
-		memset(count, '\0', sizeof(count)); // 배열 초기화
+		memset(count, '\0', sizeof(count));
 	}
 
-	//--- 2. 메모리 할당
 	ObjVert = (glm::vec4*)malloc(sizeof(glm::vec4) * vertexNum);
 	objNormal = (glm::vec4*)malloc(sizeof(glm::vec4) * NormalNum);
 	ObjElementVec = (glm::vec4*)malloc(sizeof(glm::vec4) * faceNum);
 
 	rewind(objFile);
 
-	//--- 3. 할당된 메모리에 각 버텍스, 페이스 정보 입력
 	while (!feof(objFile))
 	{
 		char bind[100];
@@ -79,4 +73,3 @@ void ReadObj(FILE* objFile, glm::vec4*& ObjVert, glm::vec4*& objNormal, glm::vec
 		}
 	}
 }
->>>>>>> e05abd8ce2be37b8870cca27f737f9ff3c4cfe1b
