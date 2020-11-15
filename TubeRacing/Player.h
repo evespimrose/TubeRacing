@@ -5,8 +5,8 @@ class Player
 {
 private:
 	Camera camera;
-
-	//¹æÇâ º¤ÅÍ
+    
+	//ë°©í–¥ ë²¡í„°
 	glm::vec3 dirVec;
 
 	float rad;
@@ -18,7 +18,7 @@ private:
 	bool Left_keyDown;
 	bool Right_keyDown;
 
-	//À§Ä¡°ª
+	//ìœ„ì¹˜ê°’
 	float posx;
 	float posy;
 	float posz;
@@ -28,7 +28,7 @@ private:
 	float acc;
 	float dec;
 
-	//À§Ä¡ Çà·Ä, È¸Àü Çà·Ä, ½ºÄÉÀÏ Çà·Ä
+	//ìœ„ì¹˜ í–‰ë ¬, íšŒì „ í–‰ë ¬, ìŠ¤ì¼€ì¼ í–‰ë ¬
 	glm::mat4 PosMat;
 	glm::mat4 RotMat;
 	glm::mat4 SclMat;
