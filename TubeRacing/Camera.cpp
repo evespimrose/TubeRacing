@@ -7,10 +7,9 @@ Camera::Camera()
 	posy = 3.0f;
 	posz = 5.0f;
 	AT = glm::vec3(1.0f);
-
 }
 
-void Camera::ZoomOut(int dz)
+/*void Camera::ZoomOut(int dz)
 {
 	int speed = dz;
 	float zoom = 0.03f;
@@ -36,11 +35,10 @@ void Camera::ZoomIn(int dz)
 			speed = 0;
 		}
 	}
-}
+}*/
 
 void Camera::Render(GLuint ShaderProgram)
 {
-	
 	glUseProgram(ShaderProgram);
 	glm::mat4 Projection = glm::mat4(1.0f);
 	Projection = glm::perspective(glm::radians(45.0f), (float)1000 / (float)1000, 0.1f, 100.0f);
