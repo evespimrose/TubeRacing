@@ -12,5 +12,6 @@ private:
 
 public:
 	void Render(GLuint ShaderProgram);
-	void Fast(int speed);
+	void ZoomOut(int dz);
+	void ZoomIn(int dz);
 };

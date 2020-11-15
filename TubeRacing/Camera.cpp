@@ -1,13 +1,31 @@
 #include "framework.h"
 #include "Camera.h"
 
-void Camera::Zoomout(int dz)
+void Camera::ZoomOut(int dz)
 {
-	if(dz > )
-	posz += 0.03 * dz;
-	if (posz > 2.0f)
+	int speed = dz;
+	float zoom = 0.03f;
+	if (speed > )
 	{
-		dz = 0;
+		posz += zoom * speed;
+		if (posz > 2.0f)
+		{
+			speed = 0;
+		}
+	}
+}
+void Camera::ZoomIn(int dz)
+{
+	int speed = 1000;
+	float zoom = 0.0003f;
+	if (dz < )
+	{
+		posz -= zoom * speed;
+		zoom += 0.0001f;
+		if (posz > 2.0f)
+		{
+			speed = 0;
+		}
 	}
 }
 
