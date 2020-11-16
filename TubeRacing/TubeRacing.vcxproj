@@ -146,6 +146,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="vboIndexer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fragment.glsl" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReadObj.h" />
     <ClInclude Include="Tube.h" />
+    <ClInclude Include="vboIndexer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
