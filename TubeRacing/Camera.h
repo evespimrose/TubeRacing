@@ -18,4 +18,5 @@ public:
 	void ZoomOut(int dz);
 	void ZoomIn(int dz);
 	void setpSpeed(float s);
+	void setSpeed(float speed);
 };
