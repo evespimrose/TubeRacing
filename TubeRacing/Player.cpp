@@ -5,8 +5,10 @@ void Player::Init()
 	Left_keyDown = 0;
 	Right_keyDown = 0;
 
+	PosVec = glm::vec3(0.0f, -3.0f, 0.0f);
+
 	PosMat = glm::mat4(1.0f);
-	PosMat = glm::translate(PosMat, glm::vec3(0.0f, -1.0f, 0.0f));
+	PosMat = glm::translate(PosMat, PosVec);
 
 	rad = 0.0f;
 	RotMat = glm::mat4(1.0f);
@@ -17,10 +19,6 @@ void Player::Init()
 	dirVec = glm::vec3(0.0f, 0.0f, 1.0f);
 
 	Speed = 1.0f;
-
-	posx = 0;
-	posy = 0;
-	posz = 0;
 
 	acc = 0;
 	dec = 0;
@@ -56,6 +54,7 @@ void Player::Move()
 	if (Right_keyDown)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
+		PosVec = glm::rotate(PosVec, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		rad += 1.5;
 		if (rad > 360)
@@ -64,11 +63,13 @@ void Player::Move()
 		}
 
 		RotMat = glm::rotate(RotMat, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
+		PosVec = glm::rotate(PosVec, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 
 	if (Left_keyDown)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
+		PosVec = glm::rotate(PosVec, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		rad -= 1.5f;
 		if (rad < 0)
@@ -77,13 +78,17 @@ void Player::Move()
 		}
 
 		RotMat = glm::rotate(RotMat, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
+		PosVec = glm::rotate(PosVec, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 }
 
 void Player::Update()
 {
-	camera.setpSpeed(Speed);
 	Move();
+	camera.setPosition(PosVec);
+	camera.setRotate(rad);
+	camera.setpSpeed(Speed);
+	camera.setAT();
 }
 
 void Player::Key_Input(unsigned char key)

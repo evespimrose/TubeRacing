@@ -26,6 +26,8 @@ private:
 	float acc;
 	float dec;
 
+	glm::vec3 PosVec;
+
 	glm::mat4 PosMat;
 	glm::mat4 RotMat;
 	glm::mat4 SclMat;

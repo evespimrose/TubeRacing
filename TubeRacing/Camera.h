@@ -1,5 +1,6 @@
 #pragma once
 #include "framework.h"
+#include <gtx/rotate_vector.hpp>
 
 class Camera
 {
@@ -10,6 +11,8 @@ private:
 
 	float pSpeed;
 
+	float rotate;
+
 	glm::vec3 AT;
 
 public:
@@ -19,4 +22,7 @@ public:
 	void ZoomIn(int dz);
 	void setpSpeed(float s);
 	void setSpeed(float speed);
+	void setRotate(float r);
+	void setPosition(glm::vec3 p);
+	void setAT();
 };
