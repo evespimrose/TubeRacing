@@ -6,7 +6,6 @@ class Player
 private:
 	Camera camera;
     
-	//방향 벡터
 	glm::vec3 dirVec;
 
 	float rad;
@@ -18,7 +17,6 @@ private:
 	bool Left_keyDown;
 	bool Right_keyDown;
 
-	//위치값
 	float posx;
 	float posy;
 	float posz;
@@ -28,7 +26,6 @@ private:
 	float acc;
 	float dec;
 
-	//위치 행렬, 회전 행렬, 스케일 행렬
 	glm::mat4 PosMat;
 	glm::mat4 RotMat;
 	glm::mat4 SclMat;
