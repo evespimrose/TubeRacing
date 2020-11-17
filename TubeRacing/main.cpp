@@ -14,8 +14,6 @@ GLuint ShaderProgram;
 
 float ambient = 0.6f;
 
-Tube t;
-
 Player player;
 
 float Rotate = 0;
@@ -184,7 +182,6 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	InitShader();
 
 	player.Init();
-	t.Init();
 
 	glutTimerFunc(1, Timer, 0);
 	glutSpecialFunc(sKeyboard);

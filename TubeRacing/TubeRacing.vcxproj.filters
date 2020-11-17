@@ -27,6 +27,9 @@
     <ClCompile Include="Tube.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Vertex.glsl">
@@ -59,6 +62,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="loadOBJ.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
