@@ -47,5 +47,21 @@ void Tube::Init()
 void Tube::Render(GLuint ShaderProgram)
 {
 	glBindVertexArray(VAO);
+
+	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
+
+	glm::mat4 TR = glm::mat4(1.0f);
+	
+	unsigned int specularLocation = glGetUniformLocation(ShaderProgram, "spec_strength");
+	unsigned int diffuseLocation = glGetUniformLocation(ShaderProgram, "diffuse_strength");
+	unsigned int shininessLocation = glGetUniformLocation(ShaderProgram, "shininess");
+
+	glUniformMatrix4fv(specularLocation, 1, GL_FALSE, &specular);
+	glUniformMatrix4fv(diffuseLocation, 1, GL_FALSE, &diffuse);
+	glUniformMatrix4fv(shininessLocation, 1, GL_FALSE, &shininess);
+
+
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
+
 	glDrawArrays(GL_TRIANGLES, 0, 1296);
 }
