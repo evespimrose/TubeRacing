@@ -18,10 +18,10 @@ void Player::Init()
 
 	dirVec = glm::vec3(0.0f, 0.0f, 1.0f);
 
-	Speed = 1.0f;
+	Speed = 0.0f;
 
-	acc = 0;
-	dec = 0;
+	acc = 0.0001f;
+	dec = 1.0f;
 
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -51,6 +51,7 @@ void Player::Init()
 
 void Player::Move()
 {
+
 	if (Left_keyDown)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -89,6 +90,11 @@ void Player::Update()
 	camera.setRotate(rad);
 	camera.setpSpeed(Speed);
 	camera.setAT();
+
+	Speed += acc;
+	PosVec.z += Speed;
+
+	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed));
 }
 
 void Player::Key_Input(unsigned char key)
