@@ -5,7 +5,7 @@ void Player::Init()
 	Left_keyDown = 0;
 	Right_keyDown = 0;
 
-	PosVec = glm::vec3(0.0f, -15.0f, 0.0f);
+	PosVec = glm::vec3(0.0f, -3.0f, 0.0f);
 
 	PosMat = glm::mat4(1.0f);
 	PosMat = glm::translate(PosMat, PosVec);
@@ -51,7 +51,7 @@ void Player::Init()
 
 void Player::Move()
 {
-	if (Right_keyDown)
+	if (Left_keyDown)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 		PosVec = glm::rotate(PosVec, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -66,7 +66,7 @@ void Player::Move()
 		PosVec = glm::rotate(PosVec, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 
-	if (Left_keyDown)
+	if (Right_keyDown)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 		PosVec = glm::rotate(PosVec, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -123,7 +123,7 @@ void Player::Render(GLuint ShaderProgram)
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
 
 	glm::mat4 TR;
-	TR = RotMat * PosMat* SclMat;
+	TR = RotMat * PosMat * SclMat;
 
 	unsigned int specularLocation = glGetUniformLocation(ShaderProgram, "spec_strength");
 	unsigned int diffuseLocation = glGetUniformLocation(ShaderProgram, "diffuse_strength");

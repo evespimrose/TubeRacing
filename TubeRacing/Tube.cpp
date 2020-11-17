@@ -29,17 +29,17 @@ void Tube::Init()
 	glGenBuffers(3, VBO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
-	glBufferData(GL_ARRAY_BUFFER, 1296 * 3 * sizeof(GLfloat), tube, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 7560 * 3 * sizeof(GLfloat), tube, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-	glBufferData(GL_ARRAY_BUFFER, 1296 * 3 * sizeof(GLfloat), Color, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 7560 * 3 * sizeof(GLfloat), Color, GL_STATIC_DRAW);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
-	glBufferData(GL_ARRAY_BUFFER, 1296 * 3 * sizeof(GLfloat), Normal, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 7560 * 3 * sizeof(GLfloat), Normal, GL_STATIC_DRAW);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
 }
@@ -51,6 +51,7 @@ void Tube::Render(GLuint ShaderProgram)
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
 
 	glm::mat4 TR = glm::mat4(1.0f);
+	TR = glm::scale(TR, glm::vec3(0.3f, 0.3f, 0.3f));
 	
 	unsigned int specularLocation = glGetUniformLocation(ShaderProgram, "spec_strength");
 	unsigned int diffuseLocation = glGetUniformLocation(ShaderProgram, "diffuse_strength");
@@ -63,5 +64,5 @@ void Tube::Render(GLuint ShaderProgram)
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
 
-	glDrawArrays(GL_TRIANGLES, 0, 1296);
+	glDrawArrays(GL_TRIANGLES, 0, 7560);
 }

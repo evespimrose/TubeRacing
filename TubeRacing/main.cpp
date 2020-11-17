@@ -26,6 +26,23 @@ void convertXY(int w, int h, int x, int y, float& ox, float& oy)
 	oy = -(float)(y - (float)h / 2.0) * (float)(1.0 / (float)(h / 2.0));
 }
 
+GLuint VAO[2];
+GLuint VBO[2][2];
+GLfloat Line[2][2][3] = {
+	{
+		{-100.0f, 0.0f, 0.0f},
+		{100.0f, 0.0f, 0.0f}
+	},
+	{
+		{0.0f, -100.0f, 0.0f},
+		{0.0f, 100.0f, 0.0f}
+	}
+};
+
+GLfloat LineColor[2][3] = {
+	{0.0f, 0.0f, 0.0f},
+	{0.0f, 0.0f, 0.0f}
+};
 
 GLchar* filetobuf(const char* filename)
 {
@@ -73,7 +90,7 @@ void make_vertexShaders()
 
 void make_fragmentShaders()
 {
-	GLchar* fragmentShaderSource = filetobuf("Fragment.glsl");;
+	GLchar* fragmentShaderSource = filetobuf("Fragment0.glsl");;
 
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
@@ -115,9 +132,24 @@ GLvoid drawScene()
 
 	// 원근 투영
 	glUseProgram(ShaderProgram);
-	
+
+	glm::vec3 lp = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 lc = glm::vec3(1.0f, 1.0f, 1.0f);
+
+	unsigned int LightPosLocation = glGetUniformLocation(ShaderProgram, "lightPos");
+	glUniformMatrix4fv(LightPosLocation, 1, GL_FALSE, glm::value_ptr(lp));
+
+	unsigned int LightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
+	glUniformMatrix4fv(LightColorLocation, 1, GL_FALSE, glm::value_ptr(lc));
+
 	player.Render(ShaderProgram);
 	t.Render(ShaderProgram);
+
+	glBindVertexArray(VAO[0]);
+	glDrawArrays(GL_LINES, 0, 2);
+
+	glBindVertexArray(VAO[1]);
+	glDrawArrays(GL_LINES, 0, 2);
 
 	glutSwapBuffers(); // 화면에 출력하기
 }
@@ -176,6 +208,26 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 
 	player.Init();
 	t.Init();
+
+	glm::vec3 lp = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 lc = glm::vec3(1.0f, 1.0f, 1.0f);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		glGenVertexArrays(1, &VAO[i]);
+		glBindVertexArray(VAO[i]);
+		glGenBuffers(2, VBO[i]);
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO[i][0]);
+		glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), Line[i], GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO[i][1]);
+		glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), LineColor, GL_STATIC_DRAW);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(1);
+	}
 
 	glutTimerFunc(1, Timer, 0);
 	glutSpecialFunc(sKeyboard);

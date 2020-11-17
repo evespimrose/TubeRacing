@@ -35,6 +35,9 @@
     <None Include="Fragment.glsl">
       <Filter>소스 파일</Filter>
     </None>
+    <None Include="Fragment0.glsl">
+      <Filter>소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">

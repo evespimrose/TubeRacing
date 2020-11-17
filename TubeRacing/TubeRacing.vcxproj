@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Fragment.glsl" />
+    <None Include="Fragment0.glsl" />
     <None Include="Vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
