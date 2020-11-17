@@ -24,7 +24,7 @@
     <ClCompile Include="Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="vboIndexer.cpp">
+    <ClCompile Include="Tube.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -52,13 +52,10 @@
     <ClInclude Include="Camera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ReadObj.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Tube.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="vboIndexer.hpp">
+    <ClInclude Include="loadOBJ.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

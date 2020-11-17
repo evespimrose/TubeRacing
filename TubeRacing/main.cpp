@@ -1,5 +1,5 @@
-#include "framework.h"
 #include "Player.h"
+#include "Tube.h"
 
 using namespace std;
 
@@ -13,6 +13,8 @@ GLuint fragmentShader;
 GLuint ShaderProgram;
 
 float ambient = 0.6f;
+
+Tube t;
 
 Player player;
 
@@ -115,6 +117,7 @@ GLvoid drawScene()
 	glUseProgram(ShaderProgram);
 	
 	player.Render(ShaderProgram);
+	t.Render(ShaderProgram);
 
 	glutSwapBuffers(); // 화면에 출력하기
 }
@@ -172,7 +175,7 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	InitShader();
 
 	player.Init();
-
+	t.Init();
 
 	glutTimerFunc(1, Timer, 0);
 	glutSpecialFunc(sKeyboard);

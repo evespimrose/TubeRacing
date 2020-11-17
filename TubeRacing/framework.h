@@ -14,6 +14,9 @@
 #include <time.h>
 #include <stdlib.h>
 #include <vector>
+#include <map>
 #include <math.h>
+
+#include <stdio.h>
 
 
