@@ -47,7 +47,7 @@ void Camera::Render(GLuint ShaderProgram)
 	unsigned int ProjectionLocation = glGetUniformLocation(ShaderProgram, "projectionTransform");;
 	glUniformMatrix4fv(ProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
 
-	glm::vec3 cameraPos = glm::vec3(0, 0, -10);
+	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, -3.0f);
 	glm::vec3 cameraDirection = AT;
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -55,9 +55,9 @@ void Camera::Render(GLuint ShaderProgram)
 
 	view = glm::lookAt(cameraPos, cameraDirection, cameraUp);
 
-	//view = glm::translate(view, glm::vec3(0.0f, -1.0f, 0.0f));
-	//view = glm::rotate(view, glm::radians(-rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-	//view = glm::translate(view, glm::vec3(-posx, -posy, -posz + 3.0f));
+	view = glm::translate(view, glm::vec3(0.0f, -1.0f, 0.0f));
+	view = glm::rotate(view, glm::radians(-rotate), glm::vec3(0.0f, 0.0f, 1.0f));
+	view = glm::translate(view, glm::vec3(-posx, -posy, -posz));
 
 	unsigned int viewLocation = glGetUniformLocation(ShaderProgram, "viewTransform");
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
