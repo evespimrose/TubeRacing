@@ -5,7 +5,7 @@ void Player::Init()
 	Left_keyDown = 0;
 	Right_keyDown = 0;
 
-	PosVec = glm::vec3(0.0f, -3.0f, 0.0f);
+	PosVec = glm::vec3(0.0f, -3.5f, 0.0f);
 
 	PosMat = glm::mat4(1.0f);
 	PosMat = glm::translate(PosMat, PosVec);

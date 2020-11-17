@@ -5,9 +5,9 @@
 class Tube
 {
 private:
-	float tube[7560][3];
-	float Normal[7560][3];
-	float Color[7560][3];
+	float tube[1200][3];
+	float Normal[1200][3];
+	float Color[1200][3];
 
 	const float specular = 0.5f;
 	const float diffuse = 0.5f;
