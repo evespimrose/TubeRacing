@@ -26,7 +26,7 @@ void Tube::Init()
 
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
-	glGenBuffers(2, VBO);
+	glGenBuffers(3, VBO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
 	glBufferData(GL_ARRAY_BUFFER, 1296 * 3 * sizeof(GLfloat), tube, GL_STATIC_DRAW);
