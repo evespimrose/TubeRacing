@@ -8,6 +8,13 @@ private:
 	std::vector<Tube> TubeList;
 	std::vector<Cube> CubeList;
 
+	float tube[1200][3];
+	float Normal[1200][3];
+	float Color[1200][3];
+
+	GLuint VAO;
+	GLuint VBO[3];
+
 
 public:
 	void Init();

@@ -123,8 +123,8 @@ GLvoid drawScene()
 	unsigned int LightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
 	glUniformMatrix4fv(LightColorLocation, 1, GL_FALSE, glm::value_ptr(lc));
 
-	m.Render(ShaderProgram);
 	player.Render(ShaderProgram);
+	m.Render(ShaderProgram);
 
 
 	glutSwapBuffers(); // 화면에 출력하기
