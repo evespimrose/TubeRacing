@@ -94,5 +94,5 @@ public:
 	void sKey_Input(int key, bool state);
 	void Render(GLuint ShaderProgram);
 	float getSpeed();
-	glm::mat4 getPosition();
+	glm::vec3 getPosition();
 };

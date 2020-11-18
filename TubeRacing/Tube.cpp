@@ -1,11 +1,13 @@
 #include "Tube.h"
 #include "loadOBJ.h"
 
-void Tube::Init()
+void Tube::Init(float Offset)
 {
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals;
+
+	zOffset = Offset;
 
 	loadOBJ("Tube.obj", vertices, uvs, normals);
 
@@ -51,6 +53,7 @@ void Tube::Render(GLuint ShaderProgram)
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
 
 	glm::mat4 TR = glm::mat4(1.0f);
+	TR = glm::translate(TR, glm::vec3(0.0f, 0.0f, zOffset));
 
 	unsigned int specularLocation = glGetUniformLocation(ShaderProgram, "spec_strength");
 	unsigned int diffuseLocation = glGetUniformLocation(ShaderProgram, "diffuse_strength");
@@ -64,4 +67,9 @@ void Tube::Render(GLuint ShaderProgram)
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
 
 	glDrawArrays(GL_TRIANGLES, 0, 1200);
+}
+
+float Tube::getzOffset()
+{
+	return zOffset;
 }

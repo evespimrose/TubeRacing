@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "Tube.h"
+#include "Map.h"
 
 using namespace std;
 
@@ -15,6 +15,7 @@ GLuint ShaderProgram;
 float ambient = 0.6f;
 
 Player player;
+Map m;
 
 float Rotate = 0;
 
@@ -122,8 +123,8 @@ GLvoid drawScene()
 	unsigned int LightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
 	glUniformMatrix4fv(LightColorLocation, 1, GL_FALSE, glm::value_ptr(lc));
 
+	m.Render(ShaderProgram);
 	player.Render(ShaderProgram);
-	t.Render(ShaderProgram);
 
 
 	glutSwapBuffers(); // 화면에 출력하기
@@ -151,7 +152,11 @@ GLvoid sKeyboardUp(int key, int x, int y)
 
 GLvoid Timer(int Value)
 {
+	float pz = player.getPosition().z;
+
+	m.Update(pz);
 	player.Update();
+
 	glutPostRedisplay();
 	glutTimerFunc(1, Timer, 0);
 }
@@ -182,6 +187,7 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	InitShader();
 
 	player.Init();
+	m.Init();
 
 	glutTimerFunc(1, Timer, 0);
 	glutSpecialFunc(sKeyboard);

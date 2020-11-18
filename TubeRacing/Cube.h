@@ -4,7 +4,7 @@
 class Cube
 {
 private:
-	const GLfloat Cube[8][3] = {
+	const GLfloat cube[8][3] = {
 		{-0.2f, -0.2f, -0.2f}, // 0
 		{0.2f, -0.2f, -0.2f},  // 1
 		{0.2f, 0.2f, -0.2f},   // 2
@@ -52,4 +52,7 @@ private:
 		{0, 0, 1},
 		{0, 0, 1}
 	};
+
+public:
+
 };

@@ -150,7 +150,7 @@ float Player::getSpeed()
 	return Speed;
 }
 
-glm::mat4 Player::getPosition()
+glm::vec3 Player::getPosition()
 {
-	return RotMat * PosMat;
+	return PosVec;
 }

@@ -8,9 +8,11 @@ class Map
 private:
 	std::vector<Tube> TubeList;
 	std::vector<Cube> CubeList;
+	float zOffset;
+
 
 public:
 	void Init();
-	void Update();
-
+	void Update(float pz);
+	void Render(GLuint ShaderProgram);
 };

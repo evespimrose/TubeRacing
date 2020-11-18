@@ -16,7 +16,10 @@ private:
 	GLuint VAO;
 	GLuint VBO[3];
 
+	float zOffset;
+
 public:
-	void Init();
+	void Init(float Offset);
 	void Render(GLuint ShaderProgram);
+	float getzOffset();
 };

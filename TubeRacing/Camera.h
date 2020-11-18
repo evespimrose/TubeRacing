@@ -1,6 +1,6 @@
 #pragma once
 #include "framework.h"
-#include <gtx/rotate_vector.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 class Camera
 {
