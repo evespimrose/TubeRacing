@@ -9,9 +9,9 @@ private:
 	float Normal[1200][3];
 	float Color[1200][3];
 
-	const float specular = 0.5f;
-	const float diffuse = 0.5f;
-	const float shininess = 32;
+	float specular = 0.5f;
+	float diffuse = 0.5f;
+	float shininess = 32;
 
 	GLuint VAO;
 	GLuint VBO[3];

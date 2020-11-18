@@ -6,7 +6,7 @@ void Map::Init()
 
 	for (int i = 0; i < 10; ++i)
 	{
-		t[i].Init(-i * 100.0f);
+		t[i].Init(-i * 10.0f);
 		TubeList.push_back(t[i]);
 	}
 }

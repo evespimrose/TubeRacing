@@ -10,9 +10,9 @@ private:
 
 	float rad;
 
-	const float specular = 0.5f;
-	const float diffuse = 0.5f;
-	const float shininess = 128;
+	float specular = 0.5f;
+	float diffuse = 0.5f;
+	float shininess = 128;
 
 	bool Left_keyDown;
 	bool Right_keyDown;
