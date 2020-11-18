@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Lighting.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -150,7 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Fragment.glsl" />
-    <None Include="Fragment0.glsl" />
     <None Include="Vertex.glsl" />
   </ItemGroup>
   <ItemGroup>

@@ -30,15 +30,15 @@
     <ClCompile Include="Map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Lighting.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Vertex.glsl">
       <Filter>소스 파일</Filter>
     </None>
     <None Include="Fragment.glsl">
-      <Filter>소스 파일</Filter>
-    </None>
-    <None Include="Fragment0.glsl">
       <Filter>소스 파일</Filter>
     </None>
   </ItemGroup>

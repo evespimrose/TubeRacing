@@ -1,12 +1,14 @@
 #pragma once
 #include "Tube.h"
 #include "Cube.h"
+#include "Lighting.h"
 
 class Map
 {
 private:
 	std::vector<Tube> TubeList;
 	std::vector<Cube> CubeList;
+	std::vector<Lighting> LightingList;
 
 	float tube[1200][3];
 	float Normal[1200][3];

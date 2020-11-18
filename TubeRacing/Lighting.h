@@ -5,8 +5,13 @@
 class Lighting
 {
 private:
-	glm::vec3 pos;
+	float xpos;
+	float zpos;
+
+	float constant = 1.0f;
+	float linear = 0.09f;
+	float quadric = 0.032f;
 
 public:
-
+	void Init(float zOffset, float xOffset);
 };

@@ -19,9 +19,9 @@ void Map::Init()
 		Normal[i][1] = normals[i].y;
 		Normal[i][2] = normals[i].z;
 
-		Color[i][0] = 0.6f;
-		Color[i][1] = 0.6f;
-		Color[i][2] = 0.6f;
+		Color[i][0] = 0.0f;
+		Color[i][1] = 1.0f;
+		Color[i][2] = 1.0f;
 	}
 
 	glGenVertexArrays(1, &VAO);
@@ -43,12 +43,23 @@ void Map::Init()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
 
-	Tube t[10];
+	Tube t[20];
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 12; ++i)
 	{
 		t[i].Init(i * 50.0f, VAO);
 		TubeList.push_back(t[i]);
+	}
+
+	Lighting leftLight[10];
+	Lighting rightLight[10];
+
+	for (int i = 0; i < 10; ++i)
+	{
+		leftLight[i].Init(i * 20.0f, -3.5f);
+		rightLight[i].Init(i * 20.0f, 3.5f);
+		LightingList.push_back(leftLight[i]);
+		LightingList.push_back(rightLight[i]);
 	}
 }
 

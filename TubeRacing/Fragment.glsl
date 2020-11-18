@@ -14,13 +14,15 @@ uniform int shininess;
 uniform float diffuse_strength;
 uniform float spec_strength;
 
+uniform vec3 PointLights[20];
+
 void main()
 {
 	float lightIntense = 0.7;
 
 	vec3 resultColor = (lightColor + ObjectColor) * lightIntense;
 
-	float ambientLight = 0.3;
+	float ambientLight = 0.1;
 
 	vec3 ambient;
 	ambient = ambientLight * resultColor;
