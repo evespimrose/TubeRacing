@@ -14,44 +14,57 @@ uniform int shininess;
 uniform float diffuse_strength;
 uniform float spec_strength;
 
-uniform vec3 PointLights[20];
+
+struct PointLight
+{    
+    vec3 position;
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+
+    float constant;
+    float linear;
+    float quadratic;
+};
+
+uniform PointLight PointLights[20];
+
+vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
+{
+    vec3 lightDir = normalize(light.position - fragPos);
+
+    float diff = max(dot(normal, lightDir), 0.0) * diffuse_strength;
+
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess) * spec_strength;
+
+    float distance = length(light.position - fragPos);
+    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+
+    // 결과들을 결합
+    vec3 ambient  = light.ambient;
+    vec3 diffuse  = light.diffuse * diff;
+    vec3 specular = light.specular * spec;
+
+    ambient  *= attenuation;
+    diffuse  *= attenuation;
+    specular *= attenuation;
+
+    return (ambient + diffuse + specular);
+} 
 
 void main()
 {
 	float lightIntense = 0.7;
 
-	vec3 resultColor = (lightColor + ObjectColor) * lightIntense;
-
-	float ambientLight = 0.1;
-
-	vec3 ambient;
-	ambient = ambientLight * resultColor;
-
-	vec3 normalVector = normalize (Normal);
-
-	vec3 lightDir;
-	lightDir = normalize (lightPos - FragPos);
-
-	float diffuseLight;
-	diffuseLight = max (dot(normalVector, lightDir), 0.0);
-
-	vec3 diffuse;
-	diffuse = diffuseLight * resultColor * diffuse_strength;
-
-	vec3 viewDir;
-	viewDir = normalize (viewPos - FragPos);
-
-	vec3 reflectDir;
-	reflectDir = reflect (-lightDir, normalVector);
-
-	float specularLight;
-	specularLight = max (dot(viewDir, reflectDir), 0.0);
-	specularLight = pow(specularLight, shininess);
-
-	vec3 specular;
-	specular = spec_strength * specularLight * vec3(0.9, 0.9, 0.9);
+	vec3 resultColor = (lightColor + ObjectColor) / 2 * lightIntense;
 
 	vec3 result;
-	result = (ambient + diffuse + specular) * resultColor;
-	FragColor = vec4 (result, 1.0);
+
+    for(int i = 0; i < 20; ++i)
+    {
+        result += CalcPointLight(PointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos));
+    }
+
+	FragColor = vec4 (result * resultColor, 1.0);
 }
