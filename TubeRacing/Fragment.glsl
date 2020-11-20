@@ -6,7 +6,6 @@ in vec3 ObjectColor;
 
 out vec4 FragColor;
 
-uniform vec3 lightPos;
 uniform vec3 viewPos;
 uniform vec3 lightColor;
 
@@ -18,6 +17,7 @@ uniform float spec_strength;
 struct PointLight
 {    
     vec3 position;
+
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -27,7 +27,7 @@ struct PointLight
     float quadratic;
 };
 
-uniform PointLight PointLights[20];
+uniform PointLight pointLights[20];
 
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
@@ -63,8 +63,8 @@ void main()
 
     for(int i = 0; i < 20; ++i)
     {
-        result += CalcPointLight(PointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos));
+        result += CalcPointLight(pointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos));
     }
 
-	FragColor = vec4 (result * resultColor, 1.0);
+	FragColor = vec4 (result, 1.0);
 }

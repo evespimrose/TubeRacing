@@ -5,36 +5,39 @@ void Lighting::Init(float zOffset, float xOffset)
 {
 	posx = xOffset;
 	posz = zOffset;
-
 }
-void Lighting::Render(GLuint ShaderProgram)
+
+
+float Lighting::getzOffset()
+{
+	return posz;
+}
+
+void Lighting::Render(GLuint ShaderProgram, int ind)
 {
 	std::string str;
 
-	for (int i = 0; i < 20; ++i)
-	{
-		str = "PointLights[" + std::to_string(i) + "]";
+	str = "pointLights[" + std::to_string(ind) + "]";
 
-		std::string tmp = ".position";
-		glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(posx, 0, posz)));
+	std::string tmp = ".position";
+	glm::vec3 p = glm::vec3(posx, 0, posz);
+	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(p));
 
-		tmp = ".ambient";
-		glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 0.0f)));
+	tmp = ".ambient";
+	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 0.0f)));
 
-		tmp = ".diffuse";
-		glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(posx, 0, posz)));
+	tmp = ".diffuse";
+	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 0.0f)));
 
-		tmp = ".specular";
-		glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(posx, 0, posz)));
+	tmp = ".specular";
+	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 0.0f)));
 
-		tmp = ".constant";
-		glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1.0f);
+	tmp = ".constant";
+	glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1.0f);
 
-		tmp = "linear";
-		glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 0.09f);
+	tmp = "linear";
+	glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 0.09f);
 
-		tmp = "quadratic";
-		glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 0.032f);
-	}
-
+	tmp = "quadratic";
+	glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 0.032f);
 }

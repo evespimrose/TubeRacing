@@ -43,7 +43,7 @@ void Map::Init()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
 
-	Tube t[20];
+	Tube t[12];
 
 	for (int i = 0; i < 12; ++i)
 	{
@@ -65,26 +65,53 @@ void Map::Init()
 
 void Map::Update(float pz)
 {
-	float lastzOffset;
-	std::vector<Tube>::iterator iter = TubeList.begin();
-	if (iter->getzOffset() + 100.0f < pz)
+	std::vector<Tube>::iterator Titer = TubeList.begin();
+	if (Titer->getzOffset() + 50.0f < pz)
 	{
-		TubeList.erase(iter);
-		iter = TubeList.end() - 1;
-		lastzOffset = iter->getzOffset();
+		TubeList.erase(Titer);
+		Titer = TubeList.end() - 1;
+		float lastzOffset = Titer->getzOffset();
 
 		Tube t;
 		t.Init(lastzOffset + 50.0f, VAO);
 		TubeList.push_back(t);
 	}
 
+	std::vector<Lighting>::iterator Liter = LightingList.begin();
+	if (Liter->getzOffset() + 50.0f < pz)
+	{
+		LightingList.erase(Liter);
+		Liter = LightingList.end() - 1;
+		float lastzOffset = Liter->getzOffset();
+
+		Lighting l;
+		l.Init(lastzOffset + 50.0f, -3.5f);
+		LightingList.push_back(l);
+
+		Liter = LightingList.begin();
+
+		LightingList.erase(Liter);
+		Lighting r;
+		r.Init(lastzOffset + 50.0f, 3.5f);
+		LightingList.push_back(r);
+	}
+
 }
 
 void Map::Render(GLuint ShaderProgram)
 {
-	std::vector<Tube>::iterator iter = TubeList.begin();
-	for (; iter != TubeList.end(); ++iter)
+	int ind = 0;
+	std::vector<Lighting>::iterator Liter = LightingList.begin();
+	for (; Liter != LightingList.end(); ++Liter)
 	{
-		iter->Render(ShaderProgram);
+		Liter->Render(ShaderProgram, ind);
+		ind++;
 	}
+
+	std::vector<Tube>::iterator Titer = TubeList.begin();
+	for (; Titer != TubeList.end(); ++Titer)
+	{
+		Titer->Render(ShaderProgram);
+	}
+
 }

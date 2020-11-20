@@ -1,12 +1,12 @@
 #pragma once
 #include "framework.h"
-
+#include <vector>
 
 class Lighting
 {
 private:
-	float xpos;
-	float zpos;
+	float posx;
+	float posz;
 
 	float constant = 1.0f;
 	float linear = 0.09f;
@@ -14,4 +14,6 @@ private:
 
 public:
 	void Init(float zOffset, float xOffset);
+	void Render(GLuint ShaderProgram, int ind);
+	float getzOffset();
 };

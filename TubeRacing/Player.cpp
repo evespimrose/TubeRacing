@@ -135,9 +135,9 @@ void Player::Render(GLuint ShaderProgram)
 	unsigned int diffuseLocation = glGetUniformLocation(ShaderProgram, "diffuse_strength");
 	unsigned int shininessLocation = glGetUniformLocation(ShaderProgram, "shininess");
 
-	glUniformMatrix4fv(specularLocation, 1, GL_FALSE, &specular);
-	glUniformMatrix4fv(diffuseLocation, 1, GL_FALSE, &diffuse);
-	glUniformMatrix4fv(shininessLocation, 1, GL_FALSE, &shininess);
+	glUniform1f(specularLocation, specular);
+	glUniform1f(diffuseLocation, diffuse);
+	glUniform1i(shininessLocation, shininess);
 
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
