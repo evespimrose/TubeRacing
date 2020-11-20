@@ -23,9 +23,9 @@ void Lighting::Render(GLuint ShaderProgram, int ind)
 	glm::vec3 p = glm::vec3(posx, 0, posz);
 	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(p));
 
-	tmp = ".ambient";
 	p = glm::vec3(1.0f, 1.0f, 1.0f);
 
+	tmp = ".ambient";
 	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(p));
 
 	tmp = ".diffuse";

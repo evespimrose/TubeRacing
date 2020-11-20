@@ -71,7 +71,7 @@ void make_vertexShaders()
 
 void make_fragmentShaders()
 {
-	GLchar* fragmentShaderSource = filetobuf("Fragment0.glsl");;
+	GLchar* fragmentShaderSource = filetobuf("Fragment.glsl");;
 
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
@@ -114,7 +114,7 @@ GLvoid drawScene()
 	// 원근 투영
 	glUseProgram(ShaderProgram);
 
-	glm::vec3 lc = glm::vec3(1.0f, 1.0f, 1.0f);
+	glm::vec3 lc = glm::vec3(0.5f, 0.5f, 0.5f);
 
 	unsigned int LightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
 	glUniform3fv(LightColorLocation, 1, glm::value_ptr(lc));

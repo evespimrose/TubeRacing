@@ -78,7 +78,7 @@ void Map::Update(float pz)
 	}
 
 	std::vector<Lighting>::iterator Liter = LightingList.begin();
-	if (Liter->getzOffset() + -50.0f < pz)
+	if (Liter->getzOffset() + 50.0f < pz)
 	{
 		LightingList.erase(Liter);
 		Liter = LightingList.end() - 1;

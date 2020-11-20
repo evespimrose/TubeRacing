@@ -15,9 +15,8 @@ uniform float spec_strength;
 
 
 struct PointLight
-{    
+{
     vec3 position;
-
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -51,16 +50,16 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     specular *= attenuation;
 
     return (ambient + diffuse + specular);
-} 
+}
 
 void main()
 {
 	float lightIntense = 0.7;
 
 	vec3 result = vec3(0.0f, 0.0f, 0.0f);
-    for(int i = 0; i < 20; ++i)
+    for(int i = 0; i < 20; i++)
     {
-        result += CalcPointLight(pointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos));
+        result = CalcPointLight(pointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos));
     }
 
 	FragColor = vec4 (result, 1.0);
