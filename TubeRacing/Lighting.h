@@ -10,7 +10,7 @@ private:
 
 	float constant = 1.0f;
 	float linear = 0.09f;
-	float quadric = 0.032f;
+	float quadratic = 0.032f;
 
 public:
 	void Init(float zOffset, float xOffset);
