@@ -41,7 +41,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
 
     // 결과들을 결합
-    vec3 ambient  = light.ambient;
+    vec3 ambient  = light.ambient * diffuse_strength;
     vec3 diffuse  = light.diffuse * diff;
     vec3 specular = light.specular * spec;
 
@@ -59,7 +59,7 @@ void main()
 	vec3 result = vec3(0.0f, 0.0f, 0.0f);
     for(int i = 0; i < 20; i++)
     {
-        result = CalcPointLight(pointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos));
+        result += CalcPointLight(pointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos)) * ObjectColor;
     }
 
 	FragColor = vec4 (result, 1.0);

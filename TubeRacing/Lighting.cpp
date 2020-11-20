@@ -37,9 +37,9 @@ void Lighting::Render(GLuint ShaderProgram, int ind)
 	tmp = ".constant";
 	glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), constant);
 
-	tmp = "linear";
+	tmp = ".linear";
 	glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), linear);
 
-	tmp = "quadratic";
+	tmp = ".quadratic";
 	glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), quadratic);
 }

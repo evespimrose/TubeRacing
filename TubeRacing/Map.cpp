@@ -47,7 +47,7 @@ void Map::Init()
 
 	for (int i = 0; i < 12; ++i)
 	{
-		t[i].Init(i * 50.0f, VAO);
+		t[i].Init(i * 40.0f, VAO);
 		TubeList.push_back(t[i]);
 	}
 
@@ -56,8 +56,8 @@ void Map::Init()
 
 	for (int i = 0; i < 10; ++i)
 	{
-		leftLight[i].Init(i * 50.0f, -3.5f);
-		rightLight[i].Init(i * 50.0f, 3.5f);
+		leftLight[i].Init(i * 10.0f, -3.5f);
+		rightLight[i].Init(i * 10.0f, 3.5f);
 		LightingList.push_back(leftLight[i]);
 		LightingList.push_back(rightLight[i]);
 	}
@@ -73,26 +73,25 @@ void Map::Update(float pz)
 		float lastzOffset = Titer->getzOffset();
 
 		Tube t;
-		t.Init(lastzOffset + 50.0f, VAO);
+		t.Init(lastzOffset + 40.0f, VAO);
 		TubeList.push_back(t);
 	}
 
 	std::vector<Lighting>::iterator Liter = LightingList.begin();
 	if (Liter->getzOffset() + 50.0f < pz)
 	{
-		LightingList.erase(Liter);
+		Liter = LightingList.erase(Liter);
+		Liter = LightingList.erase(Liter);
+
 		Liter = LightingList.end() - 1;
 		float lastzOffset = Liter->getzOffset();
 
 		Lighting l;
-		l.Init(lastzOffset + 50.0f, -3.5f);
+		l.Init(lastzOffset + 10.0f, -3.5f);
 		LightingList.push_back(l);
 
-		Liter = LightingList.begin();
-
-		LightingList.erase(Liter);
 		Lighting r;
-		r.Init(lastzOffset + 50.0f, 3.5f);
+		r.Init(lastzOffset + 10.0f, 3.5f);
 		LightingList.push_back(r);
 	}
 

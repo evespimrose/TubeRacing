@@ -11,7 +11,7 @@ private:
 	float rad;
 
 	float specular = 0.8f;
-	float diffuse = 0.5f;
+	float diffuse = 0.2f;
 	float shininess = 256;
 
 	bool Left_keyDown;
