@@ -24,13 +24,15 @@ void Lighting::Render(GLuint ShaderProgram, int ind)
 	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(p));
 
 	tmp = ".ambient";
-	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 0.0f)));
+	p = glm::vec3(1.0f, 1.0f, 1.0f);
+
+	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(p));
 
 	tmp = ".diffuse";
-	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 0.0f)));
+	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(p));
 
 	tmp = ".specular";
-	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 0.0f)));
+	glUniform3fv(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1, glm::value_ptr(p));
 
 	tmp = ".constant";
 	glUniform1f(glGetUniformLocation(ShaderProgram, (str + tmp).c_str()), 1.0f);

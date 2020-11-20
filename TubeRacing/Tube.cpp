@@ -19,9 +19,9 @@ void Tube::Render(GLuint ShaderProgram)
 	unsigned int diffuseLocation = glGetUniformLocation(ShaderProgram, "diffuse_strength");
 	unsigned int shininessLocation = glGetUniformLocation(ShaderProgram, "shininess");
 
-	glUniformMatrix4fv(specularLocation, 1, GL_FALSE, &specular);
-	glUniformMatrix4fv(diffuseLocation, 1, GL_FALSE, &diffuse);
-	glUniformMatrix4fv(shininessLocation, 1, GL_FALSE, &shininess);
+	glUniform1i(specularLocation, specular);
+	glUniform1i(diffuseLocation, diffuse);
+	glUniform1i(shininessLocation, shininess);
 
 	TR = glm::scale(TR, glm::vec3(2.5f, 2.5f, 2.5f));
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);

@@ -56,8 +56,8 @@ void Map::Init()
 
 	for (int i = 0; i < 10; ++i)
 	{
-		leftLight[i].Init(i * 20.0f, -3.5f);
-		rightLight[i].Init(i * 20.0f, 3.5f);
+		leftLight[i].Init(i * 50.0f, -3.5f);
+		rightLight[i].Init(i * 50.0f, 3.5f);
 		LightingList.push_back(leftLight[i]);
 		LightingList.push_back(rightLight[i]);
 	}
@@ -78,7 +78,7 @@ void Map::Update(float pz)
 	}
 
 	std::vector<Lighting>::iterator Liter = LightingList.begin();
-	if (Liter->getzOffset() + 50.0f < pz)
+	if (Liter->getzOffset() + -50.0f < pz)
 	{
 		LightingList.erase(Liter);
 		Liter = LightingList.end() - 1;

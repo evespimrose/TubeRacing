@@ -125,7 +125,7 @@ void Player::sKey_Input(int key, bool state)
 void Player::Render(GLuint ShaderProgram)
 {
 	camera.Render(ShaderProgram);
-
+	
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
 
 	glm::mat4 TR;
@@ -153,4 +153,9 @@ float Player::getSpeed()
 glm::vec3 Player::getPosition()
 {
 	return PosVec;
+}
+
+Camera Player::getCamera()
+{
+	return camera;
 }

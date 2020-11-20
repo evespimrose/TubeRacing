@@ -1,10 +1,5 @@
 #include "Camera.h"
 
-Camera::Camera()
-{
-	
-}
-
 void Camera::setpSpeed(float s)
 {
 	pSpeed = s;
@@ -34,6 +29,11 @@ void Camera::setSpeed(float speed)
 	pSpeed = 0.0f;
 }
 
+glm::vec3 Camera::getPosition()
+{
+	return glm::vec3(posx, posy - 1.0f, posz - 3.0f);
+}
+
 void Camera::setAT()
 {
 	AT = glm::vec3(0, 0, 0.0f);
@@ -41,7 +41,6 @@ void Camera::setAT()
 
 void Camera::Render(GLuint ShaderProgram)
 {
-	glUseProgram(ShaderProgram);
 	glm::mat4 Projection = glm::mat4(1.0f);
 	Projection = glm::perspective(glm::radians(45.0f), (float)1000 / (float)1000, 0.1f, 1000.0f);
 	unsigned int ProjectionLocation = glGetUniformLocation(ShaderProgram, "projectionTransform");;
@@ -58,6 +57,7 @@ void Camera::Render(GLuint ShaderProgram)
 	view = glm::translate(view, glm::vec3(0.0f, -1.0f, 0.0f));
 	view = glm::rotate(view, glm::radians(-rotate), glm::vec3(0.0f, 0.0f, 1.0f));
 	view = glm::translate(view, glm::vec3(-posx, -posy, -posz));
+
 
 	unsigned int viewLocation = glGetUniformLocation(ShaderProgram, "viewTransform");
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);

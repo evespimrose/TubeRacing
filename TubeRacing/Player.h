@@ -95,4 +95,5 @@ public:
 	void Render(GLuint ShaderProgram);
 	float getSpeed();
 	glm::vec3 getPosition();
+	Camera getCamera();
 };

@@ -117,11 +117,15 @@ GLvoid drawScene()
 	glm::vec3 lc = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	unsigned int LightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
-	glUniformMatrix4fv(LightColorLocation, 1, GL_FALSE, glm::value_ptr(lc));
+	glUniform3fv(LightColorLocation, 1, glm::value_ptr(lc));
+
+	glm::vec3 cp = player.getCamera().getPosition();
+
+	unsigned int viewPosLocation = glGetUniformLocation(ShaderProgram, "viewPos");
+	glUniform3fv(viewPosLocation, 1, glm::value_ptr(cp));
 
 	m.Render(ShaderProgram);
 	player.Render(ShaderProgram);
-
 
 	glutSwapBuffers(); // 화면에 출력하기
 }

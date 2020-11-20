@@ -55,15 +55,12 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 
 void main()
 {
-	float lightIntense = 0.7;
+	float lightIntense = 0.0;
 
-	vec3 resultColor = (lightColor + ObjectColor) / 2 * lightIntense;
-
-	vec3 result;
-
+	vec3 result = vec3(0.0f, 0.0f, 0.0f);
     for(int i = 0; i < 20; ++i)
     {
-        result += CalcPointLight(pointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos));
+        result += CalcPointLight(pointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos)) * lightIntense;
     }
 
 	FragColor = vec4 (result, 1.0);
