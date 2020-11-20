@@ -26,7 +26,7 @@ struct PointLight
     float quadratic;
 };
 
-uniform PointLight pointLights[20];
+uniform PointLight pointLights[30];
 
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
@@ -57,7 +57,7 @@ void main()
 	float lightIntense = 0.7;
 
 	vec3 result = vec3(0.0f, 0.0f, 0.0f);
-    for(int i = 0; i < 20; i++)
+    for(int i = 0; i < 30; i++)
     {
         result += CalcPointLight(pointLights[i], normalize(Normal), FragPos, normalize(viewPos - FragPos)) * ObjectColor;
     }

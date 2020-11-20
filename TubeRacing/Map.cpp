@@ -43,21 +43,21 @@ void Map::Init()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
 
-	Tube t[12];
+	Tube t[20];
 
-	for (int i = 0; i < 12; ++i)
+	for (int i = 0; i < 20; ++i)
 	{
-		t[i].Init(i * 40.0f, VAO);
+		t[i].Init(i * 30.0f, VAO);
 		TubeList.push_back(t[i]);
 	}
 
-	Lighting leftLight[10];
-	Lighting rightLight[10];
+	Lighting leftLight[15];
+	Lighting rightLight[15];
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 15; ++i)
 	{
-		leftLight[i].Init(i * 10.0f, -3.5f);
-		rightLight[i].Init(i * 10.0f, 3.5f);
+		leftLight[i].Init(i * 15.0f, -3.5f);
+		rightLight[i].Init(i * 15.0f, 3.5f);
 		LightingList.push_back(leftLight[i]);
 		LightingList.push_back(rightLight[i]);
 	}
@@ -73,7 +73,7 @@ void Map::Update(float pz)
 		float lastzOffset = Titer->getzOffset();
 
 		Tube t;
-		t.Init(lastzOffset + 40.0f, VAO);
+		t.Init(lastzOffset + 30.0f, VAO);
 		TubeList.push_back(t);
 	}
 
@@ -87,11 +87,11 @@ void Map::Update(float pz)
 		float lastzOffset = Liter->getzOffset();
 
 		Lighting l;
-		l.Init(lastzOffset + 10.0f, -3.5f);
+		l.Init(lastzOffset + 15.0f, -3.5f);
 		LightingList.push_back(l);
 
 		Lighting r;
-		r.Init(lastzOffset + 10.0f, 3.5f);
+		r.Init(lastzOffset + 15.0f, 3.5f);
 		LightingList.push_back(r);
 	}
 
