@@ -15,39 +15,64 @@ void Map::Init()
 		tube[i][1] = vertices[i].y;
 		tube[i][2] = vertices[i].z;
 
-		Normal[i][0] = normals[i].x;
-		Normal[i][1] = normals[i].y;
-		Normal[i][2] = normals[i].z;
+		tubeNormal[i][0] = normals[i].x;
+		tubeNormal[i][1] = normals[i].y;
+		tubeNormal[i][2] = normals[i].z;
 
-		Color[i][0] = 0.0f;
-		Color[i][1] = 1.0f;
-		Color[i][2] = 1.0f;
+		tubeColor[i][0] = 0.0f;
+		tubeColor[i][1] = 1.0f;
+		tubeColor[i][2] = 1.0f;
 	}
 
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-	glGenBuffers(3, VBO);
+	glGenVertexArrays(1, &TubeVAO);
+	glBindVertexArray(TubeVAO);
+	glGenBuffers(3, TubeVBO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, TubeVBO[0]);
 	glBufferData(GL_ARRAY_BUFFER, 1200 * 3 * sizeof(GLfloat), tube, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-	glBufferData(GL_ARRAY_BUFFER, 1200 * 3 * sizeof(GLfloat), Color, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, TubeVBO[1]);
+	glBufferData(GL_ARRAY_BUFFER, 1200 * 3 * sizeof(GLfloat), tubeColor, GL_STATIC_DRAW);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(1);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
-	glBufferData(GL_ARRAY_BUFFER, 1200 * 3 * sizeof(GLfloat), Normal, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, TubeVBO[2]);
+	glBufferData(GL_ARRAY_BUFFER, 1200 * 3 * sizeof(GLfloat), tubeNormal, GL_STATIC_DRAW);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
+
+	glGenVertexArrays(1, &CubeVAO);
+	glBindVertexArray(CubeVAO);
+	glGenBuffers(3, CubeVBO);
+	glGenBuffers(1, &CubeEBO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, CubeVBO[0]);
+	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(GLfloat), cube, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, CubeVBO[1]);
+	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(GLfloat), cubeColor, GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, CubeVBO[2]);
+	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(GLfloat), cubeNormal, GL_STATIC_DRAW);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, CubeEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 36 * sizeof(GLuint), cubeIndices, GL_STATIC_DRAW);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(3);
 
 	Tube t[20];
 
 	for (int i = 0; i < 20; ++i)
 	{
-		t[i].Init(i * 30.0f, VAO);
+		t[i].Init(i * 30.0f, TubeVAO);
 		TubeList.push_back(t[i]);
 	}
 
@@ -61,6 +86,13 @@ void Map::Init()
 		LightingList.push_back(leftLight[i]);
 		LightingList.push_back(rightLight[i]);
 	}
+
+	Cube c[40];
+
+	for (int i = 0; i < 40; ++i)
+	{
+
+	}
 }
 
 void Map::Update(float pz)
@@ -73,7 +105,7 @@ void Map::Update(float pz)
 		float lastzOffset = Titer->getzOffset();
 
 		Tube t;
-		t.Init(lastzOffset + 30.0f, VAO);
+		t.Init(lastzOffset + 30.0f, TubeVAO);
 		TubeList.push_back(t);
 	}
 

@@ -20,7 +20,7 @@ void Player::Init()
 
 	Speed = 0.0f;
 
-	acc = 0.0001f;
+	acc = 0.00005f;
 	dec = 1.0f;
 
 	glGenVertexArrays(1, &VAO);
@@ -57,7 +57,7 @@ void Player::Move()
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 		PosVec = glm::rotate(PosVec, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		rad += 1.5;
+		rad += 1.3f * Speed;
 		if (rad > 360)
 		{
 			rad -= 360;
@@ -72,7 +72,7 @@ void Player::Move()
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 		PosVec = glm::rotate(PosVec, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		rad -= 1.5f;
+		rad -= 1.3f * Speed;
 		if (rad < 0)
 		{
 			rad += 360;
@@ -91,9 +91,12 @@ void Player::Update()
 	camera.setpSpeed(Speed);
 	camera.setAT();
 
-	Speed += acc;
-	PosVec.z += Speed;
+	if (Speed < 1.5)
+	{
+		Speed += acc;
+	}
 
+	PosVec.z += Speed;
 	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed));
 }
 
