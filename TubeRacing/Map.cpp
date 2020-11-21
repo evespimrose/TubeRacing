@@ -91,7 +91,8 @@ void Map::Init()
 
 	for (int i = 0; i < 40; ++i)
 	{
-
+		c[i].Init(i * 15.0f, CubeVAO);
+		CubeList.push_back(c[i]);
 	}
 }
 
