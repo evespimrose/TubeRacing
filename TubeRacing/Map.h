@@ -17,6 +17,8 @@ private:
 	GLuint TubeVAO;
 	GLuint TubeVBO[3];
 
+	int CubeCounter;
+
 	GLuint CubeVAO;
 	GLuint CubeVBO[3];
 	GLuint CubeEBO;

@@ -20,4 +20,5 @@ private:
 public:
 	void Init(GLuint vao, float zOffset);
 	void Render(GLuint ShaderProgram);
+	float getzOffset();
 };

@@ -37,3 +37,8 @@ void Cube::Render(GLuint ShaderProgram)
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }
+
+float Cube::getzOffset()
+{
+	return zOffset;
+}

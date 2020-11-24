@@ -9,6 +9,8 @@ void Map::Init()
 
 	loadOBJ("Tube.obj", vertices, uvs, normals);
 
+	CubeCounter = 15;
+
 	for (int i = 0; i < vertices.size(); ++i)
 	{
 		tube[i][0] = vertices[i].x;
@@ -121,12 +123,31 @@ void Map::Update(float pz)
 		LightingList.push_back(r);
 	}
 
-	if ((int)pz % 50 == 0 && pz > 1)
+	if (!CubeList.empty())
 	{
-		Cube c;
+		std::vector<Cube>::iterator Citer = CubeList.begin();
+		if (Citer->getzOffset() + 50.0f < pz)
+		{
+			CubeList.erase(Citer);
+			Citer = CubeList.end() - 1;
+		}
+	}
 
-		c.Init(CubeVAO, pz + 300.0f);
-		CubeList.push_back(c);
+	while ((int)pz % 100 == 0 && pz > 100.0f)
+	{
+		if (CubeCounter > 0)
+		{
+			CubeCounter--;
+			Cube c;
+
+			c.Init(CubeVAO, pz + 300.0f + rand() % 100);
+			CubeList.push_back(c);
+		}
+		else if (CubeCounter == 0)
+		{
+			CubeCounter = 25 * pz / 10000.0f;
+			break;
+		}
 	}
 }
 
