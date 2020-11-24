@@ -57,7 +57,7 @@ void Player::Move()
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 		PosVec = glm::rotate(PosVec, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		rad += 1.3f * Speed;
+		rad += 2.0f * Speed;
 		if (rad > 360)
 		{
 			rad -= 360;
@@ -72,7 +72,7 @@ void Player::Move()
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 		PosVec = glm::rotate(PosVec, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		rad -= 1.3f * Speed;
+		rad -= 2.0f * Speed;
 		if (rad < 0)
 		{
 			rad += 360;

@@ -4,24 +4,24 @@ void Cube::Init(GLuint vao)
 {
 	VAO = vao;
 }
-
-void Cube::Render(GLuint ShaderProgram)
-{
-	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
-
-	glm::mat4 TR;
-	TR = RotMat * PosMat;
-
-	unsigned int specularLocation = glGetUniformLocation(ShaderProgram, "spec_strength");
-	unsigned int diffuseLocation = glGetUniformLocation(ShaderProgram, "diffuse_strength");
-	unsigned int shininessLocation = glGetUniformLocation(ShaderProgram, "shininess");
-
-	glUniform1f(specularLocation, specular);
-	glUniform1f(diffuseLocation, diffuse);
-	glUniform1i(shininessLocation, shininess);
-
-
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
-	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-}
+//
+//void Cube::Render(GLuint ShaderProgram)
+//{
+//	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
+//
+//	glm::mat4 TR;
+//	TR = RotMat * PosMat;
+//
+//	unsigned int specularLocation = glGetUniformLocation(ShaderProgram, "spec_strength");
+//	unsigned int diffuseLocation = glGetUniformLocation(ShaderProgram, "diffuse_strength");
+//	unsigned int shininessLocation = glGetUniformLocation(ShaderProgram, "shininess");
+//
+//	glUniform1f(specularLocation, specular);
+//	glUniform1f(diffuseLocation, diffuse);
+//	glUniform1i(shininessLocation, shininess);
+//
+//
+//	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
+//	glBindVertexArray(VAO);
+//	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+//}
