@@ -87,12 +87,6 @@ void Map::Init()
 		LightingList.push_back(rightLight[i]);
 	}
 
-	Cube c[40];
-
-	for (int i = 0; i < 40; ++i)
-	{
-
-	}
 }
 
 void Map::Update(float pz)
@@ -127,6 +121,13 @@ void Map::Update(float pz)
 		LightingList.push_back(r);
 	}
 
+	if ((int)pz % 50 == 0 && pz > 1)
+	{
+		Cube c;
+
+		c.Init(CubeVAO, pz + 300.0f);
+		CubeList.push_back(c);
+	}
 }
 
 void Map::Render(GLuint ShaderProgram)
@@ -145,4 +146,9 @@ void Map::Render(GLuint ShaderProgram)
 		Titer->Render(ShaderProgram);
 	}
 
+	std::vector<Cube>::iterator Citer = CubeList.begin();
+	for (; Citer != CubeList.end(); ++Citer)
+	{
+		Citer->Render(ShaderProgram);
+	}
 }
