@@ -4,6 +4,12 @@
 class Player
 {
 private:
+	bool loadOBJ(const char* path,
+		std::vector<glm::vec3>& out_vertices,
+		std::vector<glm::vec2>& out_uvs,
+		std::vector<glm::vec3>& out_normals
+	);
+
 	Camera camera;
     
 	glm::vec3 dirVec;
@@ -36,9 +42,9 @@ private:
 	GLuint VBO[3];
 	GLuint EBO;
 
-	float Sphere[1200][3];
-	float SphereNormal[1200][3];
-	float SphereColor[1200][3];
+	float Sphere[144][3];
+	float SphereNormal[144][3];
+	float SphereColor[144][3];
 
 	GLuint BulletVAO;
 	GLuint BulletVBO[3];
@@ -101,6 +107,7 @@ public:
 	void sKey_Input(int key, bool state);
 	void Render(GLuint ShaderProgram);
 	float getSpeed();
+	
 	glm::vec3 getPosition();
 	Camera getCamera();
 };
