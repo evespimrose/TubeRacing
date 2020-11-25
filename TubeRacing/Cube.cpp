@@ -20,7 +20,6 @@ void Cube::Init(float Offset, GLuint vao)
 void Cube::Render(GLuint ShaderProgram)
 {
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
-	//TR = glm::translate(TR, glm::vec3(0.0f, 0.0f, zOffset));
 	glm::mat4 TR;
 	TR = RotMat * PosMat;
 
