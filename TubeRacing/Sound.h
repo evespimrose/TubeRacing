@@ -5,6 +5,7 @@
 
 using namespace FMOD;
 
+
 enum SOUND {
 	BACKGROUND_SOUND, 
 	ATTACK_SOUND, 

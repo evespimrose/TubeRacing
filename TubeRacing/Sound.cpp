@@ -1,6 +1,8 @@
 #include "Sound.h"
 #include "fmod_errors.h"
 
+SoundManager* SoundManager::instance = NULL;
+
 SoundManager* SoundManager::sharedManager()
 {
 	if (instance == NULL) instance = new SoundManager;
@@ -43,6 +45,6 @@ void SoundManager::ErrorCheck(FMOD_RESULT _r)
 	{
 		TCHAR szStr[256] = { 0 };
 		MultiByteToWideChar(CP_ACP, NULL, FMOD_ErrorString(r), -1, szStr, 256);
-		MessageBox(NULL, szStr, "SoundError", MB_OK);
+		MessageBox(NULL, szStr, L"SoundError", MB_OK);
 	}
 }
