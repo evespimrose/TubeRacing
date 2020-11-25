@@ -23,6 +23,27 @@ void Player::Init()
 	acc = 0.00005f;
 	dec = 1.0f;
 
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals;
+
+	loadOBJ("Shphere.obj", vertices, uvs, normals);
+
+	for (int i = 0; i < vertices.size(); ++i)
+	{
+		Sphere[i][0] = vertices[i].x;
+		Sphere[i][1] = vertices[i].y;
+		Sphere[i][2] = vertices[i].z;
+
+		SphereNormal[i][0] = normals[i].x;
+		SphereNormal[i][1] = normals[i].y;
+		SphereNormal[i][2] = normals[i].z;
+
+		SphereColor[i][0] = 0.0f;
+		SphereColor[i][1] = 1.0f;
+		SphereColor[i][2] = 1.0f;
+	}
+
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 	glGenBuffers(3, VBO);

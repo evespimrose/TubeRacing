@@ -36,6 +36,13 @@ private:
 	GLuint VBO[3];
 	GLuint EBO;
 
+	float Sphere[1200][3];
+	float SphereNormal[1200][3];
+	float SphereColor[1200][3];
+
+	GLuint BulletVAO;
+	GLuint BulletVBO[3];
+	GLuint BulletEBO;
 
 	const GLfloat Cube[8][3] = {
 		{-0.2f, -0.2f, -0.2f}, // 0
