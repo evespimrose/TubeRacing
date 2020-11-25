@@ -1,6 +1,6 @@
 #pragma once
 #include "fmod.hpp"
-#include "framework.h"
+#include <windows.h>
 #pragma comment(lib,"fmod_vc.lib")
 
 using namespace FMOD;
@@ -14,8 +14,8 @@ enum SOUND {
 
 class SoundManager {
 public:
-	static SoundManager* instance;
-	static SoundManager* sharedManager();
+	/*static SoundManager* instance;
+	static SoundManager* sharedManager();*/
 	void init();
 	void loading();
 	void play(int _type);

@@ -88,14 +88,6 @@ void Map::Init()
 		LightingList.push_back(leftLight[i]);
 		LightingList.push_back(rightLight[i]);
 	}
-
-	Cube c[40];
-
-	for (int i = 0; i < 40; ++i)
-	{
-		c[i].Init(i * 15.0f, CubeVAO);
-		CubeList.push_back(c[i]);
-	}
 }
 
 void Map::Update(float pz)
@@ -147,12 +139,12 @@ void Map::Update(float pz)
 			CubeCounter--;
 			Cube c;
 
-			c.Init(CubeVAO, pz + 300.0f + rand() % 100);
+			c.Init(pz + 300.0f + rand() % 100, CubeVAO);
 			CubeList.push_back(c);
 		}
 		else if (CubeCounter == 0)
 		{
-			CubeCounter = 25 * pz / 10000.0f;
+			CubeCounter = 25 * pz / 5000.0f;
 			break;
 		}
 	}

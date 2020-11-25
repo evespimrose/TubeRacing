@@ -1,11 +1,11 @@
 #include "Sound.h"
 #include "fmod_errors.h"
 
-SoundManager* SoundManager::sharedManager()
+/*SoundManager* SoundManager::sharedManager()
 {
 	if (instance == NULL) instance = new SoundManager;
 	return instance;
-}
+}*/
 
 void SoundManager::init()
 {

@@ -1,12 +1,10 @@
 #include "Cube.h"
 
 
-void Cube::Init(GLuint vao, float Offset)
 void Cube::Init(float Offset, GLuint vao)
 {
 	VAO = vao;
 	zOffset = Offset;
-
 	PosVec = glm::vec3(0.0f, -3.5f, zOffset);
 
 	PosMat = glm::mat4(1.0f);
@@ -22,7 +20,6 @@ void Cube::Init(float Offset, GLuint vao)
 void Cube::Render(GLuint ShaderProgram)
 {
 	unsigned int modelLocation = glGetUniformLocation(ShaderProgram, "modelTransform");
-	//TR = glm::translate(TR, glm::vec3(0.0f, 0.0f, zOffset));
 	glm::mat4 TR;
 	TR = RotMat * PosMat;
 
