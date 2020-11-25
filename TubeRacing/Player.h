@@ -1,5 +1,6 @@
 #pragma once
 #include "Camera.h"
+#include "Bullet.h"
 
 class Player
 {
@@ -15,17 +16,19 @@ private:
 	glm::vec3 dirVec;
 
 	float rad;
-
 	float specular = 0.8f;
 	float diffuse = 0.2f;
 	float shininess = 256;
 
 	bool Left_keyDown;
 	bool Right_keyDown;
+	bool Space_keyDown;
 
 	float posx;
 	float posy;
 	float posz;
+
+	std::chrono::system_clock::time_point PrevFireTime;
 
 	float Speed;
 
@@ -49,6 +52,8 @@ private:
 	GLuint BulletVAO;
 	GLuint BulletVBO[3];
 	GLuint BulletEBO;
+
+	std::vector<Bullet> BulletList;
 
 	const GLfloat Cube[8][3] = {
 		{-0.2f, -0.2f, -0.2f}, // 0
@@ -103,10 +108,12 @@ public:
 	void Init();
 	void Move();
 	void Update();
-	void Key_Input(unsigned char key);
+	void Key_Input(unsigned char key, bool state);
 	void sKey_Input(int key, bool state);
 	void Render(GLuint ShaderProgram);
 	float getSpeed();
+	void Fire();
+	void ManageBullet();
 	
 	glm::vec3 getPosition();
 	Camera getCamera();

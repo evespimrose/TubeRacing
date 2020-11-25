@@ -99,6 +99,7 @@ bool Player::loadOBJ(
 
 void Player::Init()
 {
+	PrevFireTime = std::chrono::system_clock::now();
 	Left_keyDown = 0;
 	Right_keyDown = 0;
 
@@ -189,7 +190,6 @@ void Player::Init()
 
 void Player::Move()
 {
-
 	if (Left_keyDown)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -224,6 +224,7 @@ void Player::Move()
 void Player::Update()
 {
 	Move();
+	ManageBullet();
 	camera.setPosition(PosVec);
 	camera.setRotate(rad);
 	camera.setpSpeed(Speed);
@@ -238,8 +239,16 @@ void Player::Update()
 	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed));
 }
 
-void Player::Key_Input(unsigned char key)
+void Player::Key_Input(unsigned char key, bool state)
 {
+	if (key == ' ')
+	{
+		if (state)
+			Space_keyDown = 1;
+
+		else
+			Space_keyDown = 0;
+	}
 }
 
 void Player::sKey_Input(int key, bool state)
@@ -280,10 +289,55 @@ void Player::Render(GLuint ShaderProgram)
 	glUniform1f(diffuseLocation, diffuse);
 	glUniform1i(shininessLocation, shininess);
 
-
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	std::vector<Bullet>::iterator iter = BulletList.begin();
+
+	for (; iter != BulletList.end(); ++iter)
+	{
+		iter->Render(ShaderProgram);
+	}
+}
+
+void Player::Fire()
+{
+	std::chrono::milliseconds FireDelay(100);
+
+	std::chrono::duration<double> sec = std::chrono::system_clock::now() - PrevFireTime;
+	if (FireDelay < sec)
+	{
+		Bullet b;
+
+		b.Init(PosVec, BulletVAO, Speed);
+		BulletList.push_back(b);
+
+		PrevFireTime = std::chrono::system_clock::now();
+	}
+}
+
+void Player::ManageBullet()
+{
+	if (Space_keyDown)
+	{
+		Fire();
+	}
+
+	std::vector<Bullet>::iterator iter = BulletList.begin();
+
+	for (; iter != BulletList.end();)
+	{
+		iter->Move();
+		if (iter->getzOffset() > PosVec.z + 400.0f)
+		{
+			iter = BulletList.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
 }
 
 float Player::getSpeed()

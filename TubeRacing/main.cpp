@@ -132,13 +132,18 @@ GLvoid drawScene()
 
 GLvoid Keyboard(unsigned char key, int x, int y)
 {
-	player.Key_Input(key);
+	player.Key_Input(key, TRUE);
 	switch (key)
 	{
 	case 'Q':
 		exit(0);
 		break;
 	}
+}
+
+GLvoid KeyboardUp(unsigned char key, int x, int y)
+{
+	player.Key_Input(key, FALSE);
 }
 
 GLvoid sKeyboard(int key, int x, int y)
@@ -190,8 +195,9 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	m.Init();
 
 	glutTimerFunc(1, Timer, 0);
-	glutSpecialFunc(sKeyboard);
 	glutKeyboardFunc(Keyboard);
+	glutKeyboardUpFunc(KeyboardUp);
+	glutSpecialFunc(sKeyboard);
 	glutSpecialUpFunc(sKeyboardUp);
 	glutDisplayFunc(drawScene);
 	glutMainLoop();
