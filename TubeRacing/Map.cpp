@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "loadOBJ.h"
 
 void Map::Init()
 {
@@ -6,9 +7,9 @@ void Map::Init()
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals;
 
-	CubeCounter = 15;
-
 	loadOBJ("Tube.obj", vertices, uvs, normals);
+
+	CubeCounter = 15;
 
 	for (int i = 0; i < vertices.size(); ++i)
 	{

@@ -1,6 +1,5 @@
 #pragma once
 #include "Camera.h"
-#include "loadOBJ.h"
 
 class Player
 {
@@ -17,7 +16,6 @@ private:
 
 	bool Left_keyDown;
 	bool Right_keyDown;
-	bool Space_keyDown;
 
 	float posx;
 	float posy;
@@ -37,14 +35,6 @@ private:
 	GLuint VAO;
 	GLuint VBO[3];
 	GLuint EBO;
-
-	float Sphere[1200][3];
-	float SphereNormal[1200][3];
-	float SphereColor[1200][3];
-
-	GLuint BulletVAO;
-	GLuint BulletVBO[3];
-	GLuint BulletEBO;
 
 
 	const GLfloat Cube[8][3] = {

@@ -142,7 +142,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Lighting.cpp" />
@@ -156,15 +155,13 @@
     <None Include="Vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Lighting.h" />
-    <ClInclude Include="loadOBJ.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="loadOBJ.cpp" />
+    <ClInclude Include="loadOBJ.h" />
     <ClInclude Include="Tube.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

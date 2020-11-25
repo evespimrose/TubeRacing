@@ -2,7 +2,6 @@
 #include "Tube.h"
 #include "Cube.h"
 #include "Lighting.h"
-#include "loadOBJ.h"
 
 class Map
 {
