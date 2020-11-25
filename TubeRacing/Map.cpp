@@ -150,6 +150,21 @@ void Map::Update(float pz)
 	}
 }
 
+bool Map::CollisionCheck(float pz, float pRotate)
+{
+	std::vector<Cube>::iterator Citer = CubeList.begin();
+	for (; Citer != CubeList.end(); ++Citer)
+	{
+		float cz = Citer->getzOffset();
+		float cRotate = Citer->getRotate();
+		if (cz < pz + 0.5f && cz > pz - 0.5f && cRotate > pRotate - 10 && cRotate < pRotate + 10)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
 void Map::Render(GLuint ShaderProgram)
 {
 	int ind = 0;

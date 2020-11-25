@@ -76,4 +76,5 @@ public:
 	void Init();
 	void Update(float pz);
 	void Render(GLuint ShaderProgram);
+	bool CollisionCheck(float pz, float pRotate);
 };

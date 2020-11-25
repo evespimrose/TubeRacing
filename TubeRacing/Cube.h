@@ -21,4 +21,5 @@ public:
 	void Init(float Offset, GLuint vao);
 	void Render(GLuint ShaderProgram);
 	float getzOffset();
+	float getRotate():
 };

@@ -10,11 +10,11 @@ void Cube::Init(float Offset, GLuint vao)
 	PosMat = glm::mat4(1.0f);
 	PosMat = glm::translate(PosMat, PosVec);
 
-	float rad = rand() % 360;
+	rotate = rand() % 360;
 	RotMat = glm::mat4(1.0f);
 
-	RotMat = glm::rotate(RotMat, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
-	PosVec = glm::rotate(PosVec, glm::radians(rad), glm::vec3(0.0f, 0.0f, 1.0f));
+	RotMat = glm::rotate(RotMat, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
+	PosVec = glm::rotate(PosVec, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 void Cube::Render(GLuint ShaderProgram)
@@ -40,4 +40,8 @@ void Cube::Render(GLuint ShaderProgram)
 float Cube::getzOffset()
 {
 	return zOffset;
+}
+float Cube::getRotate()
+{
+	return rotate;
 }
