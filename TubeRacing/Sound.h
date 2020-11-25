@@ -14,8 +14,8 @@ enum SOUND {
 
 class SoundManager {
 public:
-	/*static SoundManager* instance;
-	static SoundManager* sharedManager();*/
+	static SoundManager* instance;
+	static SoundManager* sharedManager();
 	void init();
 	void loading();
 	void play(int _type);
