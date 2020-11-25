@@ -19,16 +19,6 @@ Map m;
 
 float Rotate = 0;
 
-void glutPrint(float x, float y, LPVOID font, string text)
-{
-	glWindowPos2f(x, y);
-
-	for (int i = 0; i < text.size(); i++)
-	{
-		glutBitmapCharacter(font, text[i]);
-	}
-}
-
 void convertXY(int w, int h, int x, int y, float& ox, float& oy)
 {
 	ox = (float)(x - (float)w / 2.0) * (float)(1.0 / (float)(w / 2.0));
@@ -121,6 +111,7 @@ GLvoid drawScene()
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// 원근 투영
 	glUseProgram(ShaderProgram);
 
 	glm::vec3 lc = glm::vec3(0.5f, 0.5f, 0.5f);
