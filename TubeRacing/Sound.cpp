@@ -1,11 +1,11 @@
 #include "Sound.h"
 #include "fmod_errors.h"
 
-/*SoundManager* SoundManager::sharedManager()
+SoundManager* SoundManager::sharedManager()
 {
 	if (instance == NULL) instance = new SoundManager;
 	return instance;
-}*/
+}
 
 void SoundManager::init()
 {
@@ -17,13 +17,11 @@ void SoundManager::init()
 
 void SoundManager::loading()
 {
-	r = pFmod->createSound("sound_name.mp3", FMOD_LOOP_NORMAL, NULL, &music[BACKGROUND_SOUND]);
+	r = pFmod->createSound("sound01.mp3", FMOD_LOOP_NORMAL, NULL, &music[BACKGROUND_SOUND]);
 	ErrorCheck(r);
-	r = pFmod->createSound("sound_name.mp3", FMOD_DEFAULT, NULL, &music[ATTACK_SOUND]);
+	r = pFmod->createSound("sound02.mp3", FMOD_DEFAULT, NULL, &music[DRIVE_SOUND]);
 	ErrorCheck(r);
-	r = pFmod->createSound("sound_name.mp3", FMOD_DEFAULT, NULL, &music[CRUSH_SOUND]);
-	ErrorCheck(r);
-	r = pFmod->createSound("sound_name.mp3", FMOD_DEFAULT, NULL, &music[COLLAPSE_SOUND]);
+	r = pFmod->createSound("sound03.mp3", FMOD_DEFAULT, NULL, &music[ATTACK_SOUND]);
 	ErrorCheck(r);
 }
 
@@ -45,6 +43,6 @@ void SoundManager::ErrorCheck(FMOD_RESULT _r)
 	{
 		TCHAR szStr[256] = { 0 };
 		MultiByteToWideChar(CP_ACP, NULL, FMOD_ErrorString(r), -1, szStr, 256);
-		MessageBox(NULL, szStr, L"SoundError", MB_OK);
+		MessageBox(NULL, szStr, "SoundError", MB_OK);
 	}
 }

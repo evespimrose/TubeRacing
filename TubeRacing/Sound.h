@@ -9,13 +9,14 @@ enum SOUND {
 	BACKGROUND_SOUND, 
 	ATTACK_SOUND, 
 	CRUSH_SOUND,
-	COLLAPSE_SOUND
+	COLLAPSE_SOUND,
+	DRIVE_SOUND
 };
 
 class SoundManager {
 public:
-	/*static SoundManager* instance;
-	static SoundManager* sharedManager();*/
+	static SoundManager* instance;
+	static SoundManager* sharedManager();
 	void init();
 	void loading();
 	void play(int _type);
