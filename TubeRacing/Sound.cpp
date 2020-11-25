@@ -19,11 +19,11 @@ void SoundManager::init()
 
 void SoundManager::loading()
 {
-	r = pFmod->createSound("sound01.mp3", FMOD_LOOP_NORMAL, NULL, &music[BACKGROUND_SOUND]);
+	r = pFmod->createSound("sound/sound01.mp3", FMOD_LOOP_NORMAL, NULL, &music[BACKGROUND_SOUND]);
 	ErrorCheck(r);
-	r = pFmod->createSound("sound02.mp3", FMOD_DEFAULT, NULL, &music[DRIVE_SOUND]);
+	r = pFmod->createSound("sound/sound02.mp3", FMOD_DEFAULT, NULL, &music[DRIVE_SOUND]);
 	ErrorCheck(r);
-	r = pFmod->createSound("sound03.mp3", FMOD_DEFAULT, NULL, &music[ATTACK_SOUND]);
+	r = pFmod->createSound("sound/sound03.mp3", FMOD_DEFAULT, NULL, &music[ATTACK_SOUND]);
 	ErrorCheck(r);
 }
 
