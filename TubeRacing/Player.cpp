@@ -47,11 +47,34 @@ void Player::Init()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 36 * sizeof(GLuint), Indices, GL_STATIC_DRAW);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(3);
+
+	//총알 obj 가져오기
+
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals;
+
+	loadOBJ("Shphere.obj", vertices, uvs, normals);
+
+	for (int i = 0; i < vertices.size(); ++i)
+	{
+		Sphere[i][0] = vertices[i].x;
+		Sphere[i][1] = vertices[i].y;
+		Sphere[i][2] = vertices[i].z;
+
+		SphereNormal[i][0] = normals[i].x;
+		SphereNormal[i][1] = normals[i].y;
+		SphereNormal[i][2] = normals[i].z;
+
+		SphereColor[i][0] = 0.0f;
+		SphereColor[i][1] = 1.0f;
+		SphereColor[i][2] = 1.0f;
+	}
+
 }
 
 void Player::Move()
 {
-
 	if (Left_keyDown)
 	{
 		RotMat = glm::rotate(RotMat, glm::radians(-rad), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -122,6 +145,14 @@ void Player::sKey_Input(int key, bool state)
 
 		else
 			Left_keyDown = 0;
+	}
+	if (key == ' ')
+	{
+		if (state)
+			Space_keyDown = 1;
+
+		else
+			Space_keyDown = 0;
 	}
 }
 

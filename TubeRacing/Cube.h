@@ -1,6 +1,5 @@
 #pragma once
 #include "framework.h"
-#include <glm/gtx/rotate_vector.hpp>
 
 class Cube
 {
