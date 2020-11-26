@@ -239,7 +239,7 @@ void Player::Update()
 	ManageBullet();
 	camera.setPosition(PosVec);
 	camera.setRotate(rad);
-	camera.setpSpeed(Speed);
+	camera.setpSpeed(Speed * fDeltaTime);
 	camera.setAT();
 
 	if (Speed < 1.5)
