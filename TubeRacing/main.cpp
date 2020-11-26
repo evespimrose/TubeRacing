@@ -8,7 +8,7 @@ const float length = 0.5;
 
 char* arr;
 
-int GameState = 1;
+int GameState = 0;
 
 GLuint vertexShader;
 GLuint fragmentShader;

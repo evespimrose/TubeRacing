@@ -380,7 +380,7 @@ std::vector<Bullet> Player::getBulletList()
 
 bool Player::MinusLife()
 {
-	if (Life == 0)
+	if (Life > 1)
 	{
 		Life--;
 		return 0;
