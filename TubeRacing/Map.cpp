@@ -207,6 +207,14 @@ void Map::BulletCollisionCheck(std::vector<Bullet>& bList)
 	}
 }
 
+void Map::Reset()
+{
+	CubeList.clear();
+	TubeList.clear();
+	LightingList.clear();
+	Init();
+}
+
 void Map::Render(GLuint ShaderProgram)
 {
 	int ind = 0;

@@ -6,8 +6,6 @@ bool Player::loadOBJ(
 	std::vector<glm::vec2>& out_uvs,
 	std::vector<glm::vec3>& out_normals
 ) {
-	printf("Loading OBJ file %s...\n", path);
-
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	std::vector<glm::vec3> temp_vertices;
 	std::vector<glm::vec2> temp_uvs;
@@ -99,7 +97,7 @@ bool Player::loadOBJ(
 
 void Player::Init()
 {
-	Life = 5;
+	Life = 3;
 	PrevFireTime = std::chrono::system_clock::now();
 
 	QueryPerformanceFrequency(&tSecond);
@@ -125,7 +123,6 @@ void Player::Init()
 	Speed = 0.0f;
 
 	acc = 0.00005f;
-	dec = 1.0f;
 
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
@@ -363,10 +360,17 @@ float Player::getRotate()
 	return rad;
 }
 
-void Player::collision()
+bool Player::collision()
 {
 	Speed /= 2;
-	MinusLife();
+	if (MinusLife())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 std::vector<Bullet> Player::getBulletList()
@@ -374,21 +378,28 @@ std::vector<Bullet> Player::getBulletList()
 	return BulletList;
 }
 
-void Player::MinusLife()
+bool Player::MinusLife()
 {
-	if (Life > 0)
+	if (Life == 0)
 	{
 		Life--;
+		return 0;
 	}
 	else
 	{
-
+		return 1;
 	}
 }
 
 int Player::getLife()
 {
 	return Life;
+}
+
+void Player::Reset()
+{
+	BulletList.clear();
+	Init();
 }
 
 void Player::setBulletList(std::vector<Bullet> tmpList)

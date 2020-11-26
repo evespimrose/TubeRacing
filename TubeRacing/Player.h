@@ -38,7 +38,6 @@ private:
 	float Speed;
 
 	float acc;
-	float dec;
 
 	glm::vec3 PosVec;
 
@@ -120,14 +119,16 @@ public:
 	void Render(GLuint ShaderProgram);
 	float getSpeed();
 	float getRotate();
-	void collision();
+	bool collision();
 	void Fire();
 	std::vector<Bullet> getBulletList();
 	void setBulletList(std::vector<Bullet> tmpList);
 	void ManageBullet();
-	void MinusLife();
+	bool MinusLife();
 	int getLife();
 	
 	glm::vec3 getPosition();
 	Camera getCamera();
+
+	void Reset();
 };

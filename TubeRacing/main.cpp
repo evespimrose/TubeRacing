@@ -8,6 +8,8 @@ const float length = 0.5;
 
 char* arr;
 
+int GameState = 1;
+
 GLuint vertexShader;
 GLuint fragmentShader;
 
@@ -136,38 +138,91 @@ void InitShader()
 
 GLvoid drawScene()
 {
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if (GameState == 0)
+	{
+		glClearColor(0, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// 원근 투영
-	glUseProgram(ShaderProgram);
+		// 원근 투영
+		glUseProgram(ShaderProgram);
 
-	glm::vec3 lc = glm::vec3(0.5f, 0.5f, 0.5f);
+		glm::vec3 lc = glm::vec3(0.5f, 0.5f, 0.5f);
 
-	unsigned int LightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
-	glUniform3fv(LightColorLocation, 1, glm::value_ptr(lc));
+		unsigned int LightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
+		glUniform3fv(LightColorLocation, 1, glm::value_ptr(lc));
 
-	glm::vec3 cp = player.getCamera().getPosition();
+		glm::vec3 cp = player.getCamera().getPosition();
 
-	unsigned int viewPosLocation = glGetUniformLocation(ShaderProgram, "viewPos");
-	glUniform3fv(viewPosLocation, 1, glm::value_ptr(cp));
+		unsigned int viewPosLocation = glGetUniformLocation(ShaderProgram, "viewPos");
+		glUniform3fv(viewPosLocation, 1, glm::value_ptr(cp));
 
-	m.Render(ShaderProgram);
-	player.Render(ShaderProgram);
+		m.Render(ShaderProgram);
+		player.Render(ShaderProgram);
 
-	string score = "Score : ";
-	score += std::to_string((int)player.getPosition().z);
-	glutPrint(850.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, score);
+		string score = "Score : ";
+		score += std::to_string((int)player.getPosition().z);
+		glutPrint(850.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, score);
 
-	string speed = "Speed : ";
-	speed += std::to_string((int)(player.getSpeed() * 500)) + "km/h";
-	glutPrint(0.0f, 0.0f, GLUT_BITMAP_HELVETICA_18, speed);
+		string speed = "Speed : ";
+		speed += std::to_string((int)(player.getSpeed() * 500)) + "km/h";
+		glutPrint(0.0f, 0.0f, GLUT_BITMAP_HELVETICA_18, speed);
 
-	string life = "Life : ";
-	life += std::to_string(player.getLife());
-	glutPrint(0.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, life);
+		string life = "Life : ";
+		life += std::to_string(player.getLife());
+		glutPrint(0.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, life);
 
-	glutSwapBuffers(); // 화면에 출력하기
+		glutSwapBuffers();
+	}
+	else
+	{
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glutPrint(420.0f, 550.0f, GLUT_BITMAP_TIMES_ROMAN_24, "GAME OVER");
+		glutPrint(370.0f, 400.0f, GLUT_BITMAP_TIMES_ROMAN_24, "Press R to CONTINUE");
+
+		glutSwapBuffers();
+	}
+}
+GLvoid Timer(int Value)
+{
+	if (GameState == 1)
+	{
+		return;
+	}
+
+	float pz = player.getPosition().z;
+
+	m.Update(pz);
+	player.Update();
+	if(m.PlayerCollisionCheck(pz, player.getRotate()))
+	{
+		if (player.collision())
+		{
+			GameState = 1;
+			glutPostRedisplay();
+		}
+	}
+	std::vector<Bullet> tmpList = player.getBulletList();
+	m.BulletCollisionCheck(tmpList);
+	player.setBulletList(tmpList);
+
+	string str = "Turbo_Racing   fps:";
+
+	glutSetWindowTitle((str + std::to_string(CalculateFrameRate())).c_str());
+
+	glutPostRedisplay();
+	glutTimerFunc(1, Timer, 0);
+}
+
+
+void Reset()
+{
+	GameState = 0;
+	player.Reset();
+	m.Reset();
+
+	glutTimerFunc(1, Timer, 0);
 }
 
 GLvoid Keyboard(unsigned char key, int x, int y)
@@ -178,6 +233,19 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 	case 'Q':
 		exit(0);
 		break;
+	}
+
+	if (GameState == 1)
+	{
+		switch (key)
+		{
+		case 'R':
+			Reset();
+			break;
+		case 'r':
+			Reset();
+			break;
+		}
 	}
 }
 
@@ -195,27 +263,6 @@ GLvoid sKeyboardUp(int key, int x, int y)
 	player.sKey_Input(key, FALSE);
 }
 
-GLvoid Timer(int Value)
-{
-	float pz = player.getPosition().z;
-
-	m.Update(pz);
-	player.Update();
-	if(m.PlayerCollisionCheck(pz, player.getRotate()))
-	{
-		player.collision();
-	}
-	std::vector<Bullet> tmpList = player.getBulletList();
-	m.BulletCollisionCheck(tmpList);
-	player.setBulletList(tmpList);
-
-	string str = "Turbo_Racing      ||      fps:";
-
-	glutSetWindowTitle((str + std::to_string(CalculateFrameRate())).c_str());
-
-	glutPostRedisplay();
-	glutTimerFunc(1, Timer, 0);
-}
 
 int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 {
