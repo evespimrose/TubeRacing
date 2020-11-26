@@ -144,7 +144,11 @@ void Map::Update(float pz)
 		}
 		else if (CubeCounter == 0)
 		{
-			CubeCounter = 25 * pz / 5000.0f;
+ 			CubeCounter = 25 * pz / 5000.0f;
+			if (CubeCounter > 20)
+			{
+				CubeCounter = 10;
+			}
 			break;
 		}
 	}

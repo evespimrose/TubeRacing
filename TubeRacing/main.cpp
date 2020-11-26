@@ -160,7 +160,7 @@ GLvoid drawScene()
 	glutPrint(850.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, score);
 
 	string speed = "Speed : ";
-	speed += std::to_string((int)(player.getSpeed() * 100000));
+	speed += std::to_string((int)(player.getSpeed() * 500)) + "km/h";
 	glutPrint(0.0f, 0.0f, GLUT_BITMAP_HELVETICA_18, speed);
 
 	glutSwapBuffers(); // 화면에 출력하기
@@ -205,7 +205,7 @@ GLvoid Timer(int Value)
 	m.BulletCollisionCheck(tmpList);
 	player.setBulletList(tmpList);
 
-	string str = "Turbo_Racing||      fps:";
+	string str = "Turbo_Racing      ||      fps:";
 
 	glutSetWindowTitle((str + std::to_string(CalculateFrameRate())).c_str());
 

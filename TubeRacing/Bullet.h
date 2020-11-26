@@ -14,6 +14,11 @@ private:
 	float Speed;
 	glm::vec3 PosVec;
 
+	LARGE_INTEGER tSecond;
+	LARGE_INTEGER tTime;
+
+	float fDeltaTime;
+
 public:
 	void Init(glm::vec3 playerPos, GLuint vao, float PlayerSpeed, float Rotate);
 	void Render(GLuint ShaderProgram);

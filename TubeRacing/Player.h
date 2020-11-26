@@ -29,9 +29,11 @@ private:
 	float posz;
 
 	std::chrono::system_clock::time_point PrevFireTime;
-	std::chrono::high_resolution_clock Delta_Timer;
 
-	std::chrono::high_resolution_clock::time_point Prevtime;
+	LARGE_INTEGER tSecond;
+	LARGE_INTEGER tTime;
+
+	float fDeltaTime;
 
 	float Speed;
 

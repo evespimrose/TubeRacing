@@ -2,6 +2,10 @@
 
 void Bullet::Init(glm::vec3 playerPos, GLuint vao, float PlayerSpeed, float rad)
 {
+	QueryPerformanceFrequency(&tSecond);
+	QueryPerformanceCounter(&tTime);
+	fDeltaTime = 0;
+
 	PosVec = playerPos;
 	PosVec.z += 0.5f;
 
@@ -37,8 +41,15 @@ void Bullet::Render(GLuint ShaderProgram)
 
 void Bullet::Move()
 {
-	PosVec.z += Speed;
-	PosMat = glm::translate(PosMat, glm::vec3(0, 0, Speed));
+	LARGE_INTEGER time;
+	QueryPerformanceCounter(&time);
+	fDeltaTime = (time.QuadPart - tTime.QuadPart) / (float)tSecond.QuadPart;
+	tTime = time;
+
+	fDeltaTime *= 100;
+
+	PosVec.z += Speed * fDeltaTime;
+	PosMat = glm::translate(PosMat, glm::vec3(0, 0, Speed * fDeltaTime));
 }
 
 float Bullet::getzOffset()

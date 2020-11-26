@@ -100,11 +100,13 @@ bool Player::loadOBJ(
 void Player::Init()
 {
 	PrevFireTime = std::chrono::system_clock::now();
-	Prevtime = Delta_Timer.now();
+
+	QueryPerformanceFrequency(&tSecond);
+	QueryPerformanceCounter(&tTime);
+	fDeltaTime = 0;
 
 	Left_keyDown = 0;
 	Right_keyDown = 0;
-
 
 	PosVec = glm::vec3(0.0f, -3.5f, 0.0f);
 
@@ -226,8 +228,12 @@ void Player::Move()
 
 void Player::Update()
 {
-	auto now = Delta_Timer.now();
-	auto delta_time = now - Prevtime;
+	LARGE_INTEGER time;
+	QueryPerformanceCounter(&time);
+	fDeltaTime = (time.QuadPart - tTime.QuadPart) / (float)tSecond.QuadPart;
+	tTime = time;
+
+	fDeltaTime *= 100;
 
 	Move();
 	ManageBullet();
@@ -238,13 +244,11 @@ void Player::Update()
 
 	if (Speed < 1.5)
 	{
-		Speed += acc * delta_time.count() / 10000000.0f;
+		Speed += acc * fDeltaTime;
 	}
 
-	PosVec.z += Speed;
-	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed));
-
-	Prevtime = now;
+	PosVec.z += Speed * fDeltaTime;
+	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed * fDeltaTime));
 }
 
 void Player::Key_Input(unsigned char key, bool state)
@@ -311,7 +315,7 @@ void Player::Render(GLuint ShaderProgram)
 
 void Player::Fire()
 {
-	std::chrono::milliseconds FireDelay(100);
+	std::chrono::milliseconds FireDelay(300);
 
 	std::chrono::duration<double> sec = std::chrono::system_clock::now() - PrevFireTime;
 	if (FireDelay < sec)
@@ -337,7 +341,7 @@ void Player::ManageBullet()
 	for (; iter != BulletList.end();)
 	{
 		iter->Move();
-		if (iter->getzOffset() > PosVec.z + 400.0f)
+		if (iter->getzOffset() > PosVec.z + 50.0f)
 		{
 			iter = BulletList.erase(iter);
 		}
