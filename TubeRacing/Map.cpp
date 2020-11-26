@@ -9,7 +9,7 @@ void Map::Init()
 
 	loadOBJ("Tube.obj", vertices, uvs, normals);
 
-	CubeCounter = 15;
+	CubeCounter = 1;
 
 	for (int i = 0; i < vertices.size(); ++i)
 	{
@@ -144,8 +144,8 @@ void Map::Update(float pz)
 		}
 		else if (CubeCounter == 0)
 		{
- 			CubeCounter = 25 * pz / 5000.0f;
-			if (CubeCounter > 20)
+ 			CubeCounter = 1 + pz / 1000;
+			if (CubeCounter > 10)
 			{
 				CubeCounter = 10;
 			}
