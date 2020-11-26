@@ -20,6 +20,16 @@ Map m;
 
 float Rotate = 0;
 
+void glutPrint(float x, float y, LPVOID font, string text)
+{
+	glWindowPos2f(x, y);
+
+	for (int i = 0; i < text.size(); i++)
+	{
+		glutBitmapCharacter(font, text[i]);
+	}
+}
+
 void convertXY(int w, int h, int x, int y, float& ox, float& oy)
 {
 	ox = (float)(x - (float)w / 2.0) * (float)(1.0 / (float)(w / 2.0));
@@ -127,6 +137,10 @@ GLvoid drawScene()
 
 	m.Render(ShaderProgram);
 	player.Render(ShaderProgram);
+
+	string score = "Score : ";
+	score += std::to_string((int)player.getPosition().z);
+	glutPrint(850.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, score);
 
 	glutSwapBuffers(); // 화면에 출력하기
 }
