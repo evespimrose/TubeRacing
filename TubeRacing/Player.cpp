@@ -99,6 +99,7 @@ bool Player::loadOBJ(
 
 void Player::Init()
 {
+	Life = 5;
 	PrevFireTime = std::chrono::system_clock::now();
 
 	QueryPerformanceFrequency(&tSecond);
@@ -365,11 +366,29 @@ float Player::getRotate()
 void Player::collision()
 {
 	Speed /= 2;
+	MinusLife();
 }
 
 std::vector<Bullet> Player::getBulletList()
 {
 	return BulletList;
+}
+
+void Player::MinusLife()
+{
+	if (Life > 0)
+	{
+		Life--;
+	}
+	else
+	{
+
+	}
+}
+
+int Player::getLife()
+{
+	return Life;
 }
 
 void Player::setBulletList(std::vector<Bullet> tmpList)

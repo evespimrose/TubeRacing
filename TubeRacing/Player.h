@@ -58,6 +58,8 @@ private:
 	GLuint BulletVBO[3];
 	GLuint BulletEBO;
 
+	int Life;
+
 	std::vector<Bullet> BulletList;
 
 	const GLfloat Cube[8][3] = {
@@ -123,6 +125,8 @@ public:
 	std::vector<Bullet> getBulletList();
 	void setBulletList(std::vector<Bullet> tmpList);
 	void ManageBullet();
+	void MinusLife();
+	int getLife();
 	
 	glm::vec3 getPosition();
 	Camera getCamera();

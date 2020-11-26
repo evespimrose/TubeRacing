@@ -163,6 +163,10 @@ GLvoid drawScene()
 	speed += std::to_string((int)(player.getSpeed() * 500)) + "km/h";
 	glutPrint(0.0f, 0.0f, GLUT_BITMAP_HELVETICA_18, speed);
 
+	string life = "Life : ";
+	life += std::to_string(player.getLife());
+	glutPrint(0.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, life);
+
 	glutSwapBuffers(); // 화면에 출력하기
 }
 
