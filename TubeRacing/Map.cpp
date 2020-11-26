@@ -150,7 +150,7 @@ void Map::Update(float pz)
 	}
 }
 
-bool Map::CollisionCheck(float pz, float pRotate)
+bool Map::PlayerCollisionCheck(float pz, float pRotate)
 {
 	std::vector<Cube>::iterator Citer = CubeList.begin();
 	for (; Citer != CubeList.end(); ++Citer)
@@ -164,6 +164,19 @@ bool Map::CollisionCheck(float pz, float pRotate)
 		}
 	}
 	return 0;
+}
+
+bool Map::BulletCollisionCheck(std::vector<Bullet> bList)
+{
+	std::vector<Bullet>::iterator iter = bList.begin();
+
+	for (; iter != bList.end(); ++iter)
+	{
+		std::vector<Cube>::iterator Citer = CubeList.begin();
+		for (; Citer != CubeList.end(); ++Citer)
+		{
+		}
+	}
 }
 
 void Map::Render(GLuint ShaderProgram)

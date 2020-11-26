@@ -355,6 +355,11 @@ void Player::collision()
 	Speed /= 2;
 }
 
+std::vector<Bullet> Player::getBulletList()
+{
+	return BulletList;
+}
+
 glm::vec3 Player::getPosition()
 {
 	return PosVec;

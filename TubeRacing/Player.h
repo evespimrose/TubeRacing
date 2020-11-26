@@ -115,6 +115,7 @@ public:
 	float getRotate();
 	void collision();
 	void Fire();
+	std::vector<Bullet> getBulletList();
 	void ManageBullet();
 	
 	glm::vec3 getPosition();
