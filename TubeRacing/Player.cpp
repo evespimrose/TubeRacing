@@ -310,7 +310,7 @@ void Player::Fire()
 	{
 		Bullet b;
 
-		b.Init(PosVec, BulletVAO, Speed);
+		b.Init(PosVec, BulletVAO, Speed, rad);
 		BulletList.push_back(b);
 
 		PrevFireTime = std::chrono::system_clock::now();
@@ -358,6 +358,12 @@ void Player::collision()
 std::vector<Bullet> Player::getBulletList()
 {
 	return BulletList;
+}
+
+void Player::setBulletList(std::vector<Bullet> tmpList)
+{
+	BulletList.clear();
+	BulletList = tmpList;
 }
 
 glm::vec3 Player::getPosition()

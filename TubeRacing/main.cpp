@@ -180,10 +180,9 @@ GLvoid Timer(int Value)
 	{
 		player.collision();
 	}
-	if (m.BulletCollisionCheck())
-	{
-
-	}
+	std::vector<Bullet> tmpList = player.getBulletList();
+	m.BulletCollisionCheck(tmpList);
+	player.setBulletList(tmpList);
 
 	glutPostRedisplay();
 	glutTimerFunc(1, Timer, 0);

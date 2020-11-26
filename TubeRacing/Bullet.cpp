@@ -1,6 +1,6 @@
 #include "Bullet.h"
 
-void Bullet::Init(glm::vec3 playerPos, GLuint vao, float PlayerSpeed)
+void Bullet::Init(glm::vec3 playerPos, GLuint vao, float PlayerSpeed, float rad)
 {
 	PosVec = playerPos;
 	PosVec.z += 0.5f;
@@ -8,6 +8,7 @@ void Bullet::Init(glm::vec3 playerPos, GLuint vao, float PlayerSpeed)
 	PosMat = glm::mat4(1.0f);
 	PosMat = glm::translate(PosMat, PosVec);
 
+	rotate = rad;
 	Speed = PlayerSpeed + 0.3f;
 	VAO = vao;
 }
@@ -43,4 +44,9 @@ void Bullet::Move()
 float Bullet::getzOffset()
 {
 	return PosVec.z;
+}
+
+float Bullet::getRotate()
+{
+	return rotate;
 }

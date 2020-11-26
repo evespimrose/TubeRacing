@@ -116,6 +116,7 @@ public:
 	void collision();
 	void Fire();
 	std::vector<Bullet> getBulletList();
+	void setBulletList(std::vector<Bullet> tmpList);
 	void ManageBullet();
 	
 	glm::vec3 getPosition();
