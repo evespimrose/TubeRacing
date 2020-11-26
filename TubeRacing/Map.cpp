@@ -159,6 +159,7 @@ bool Map::CollisionCheck(float pz, float pRotate)
 		float cRotate = Citer->getRotate();
 		if (cz < pz + 0.5f && cz > pz - 0.5f && cRotate > pRotate - 10 && cRotate < pRotate + 10)
 		{
+			CubeList.erase(Citer);
 			return 1;
 		}
 	}

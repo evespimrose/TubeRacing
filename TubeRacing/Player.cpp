@@ -345,6 +345,16 @@ float Player::getSpeed()
 	return Speed;
 }
 
+float Player::getRotate()
+{
+	return rad;
+}
+
+void Player::collision()
+{
+	Speed /= 2;
+}
+
 glm::vec3 Player::getPosition()
 {
 	return PosVec;

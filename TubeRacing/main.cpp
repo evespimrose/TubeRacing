@@ -176,6 +176,10 @@ GLvoid Timer(int Value)
 
 	m.Update(pz);
 	player.Update();
+	if(m.CollisionCheck(pz, player.getRotate()))
+	{
+		player.collision();
+	}
 
 	glutPostRedisplay();
 	glutTimerFunc(1, Timer, 0);

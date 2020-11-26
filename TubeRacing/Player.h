@@ -112,6 +112,8 @@ public:
 	void sKey_Input(int key, bool state);
 	void Render(GLuint ShaderProgram);
 	float getSpeed();
+	float getRotate();
+	void collision();
 	void Fire();
 	void ManageBullet();
 	
