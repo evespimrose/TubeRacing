@@ -100,8 +100,11 @@ bool Player::loadOBJ(
 void Player::Init()
 {
 	PrevFireTime = std::chrono::system_clock::now();
+	Prevtime = Delta_Timer.now();
+
 	Left_keyDown = 0;
 	Right_keyDown = 0;
+
 
 	PosVec = glm::vec3(0.0f, -3.5f, 0.0f);
 
@@ -223,6 +226,9 @@ void Player::Move()
 
 void Player::Update()
 {
+	auto now = Delta_Timer.now();
+	auto delta_time = now - Prevtime;
+
 	Move();
 	ManageBullet();
 	camera.setPosition(PosVec);
@@ -232,11 +238,13 @@ void Player::Update()
 
 	if (Speed < 1.5)
 	{
-		Speed += acc;
+		Speed += acc * delta_time.count() / 10000000.0f;
 	}
 
 	PosVec.z += Speed;
 	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed));
+
+	Prevtime = now;
 }
 
 void Player::Key_Input(unsigned char key, bool state)

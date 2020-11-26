@@ -30,6 +30,23 @@ void glutPrint(float x, float y, LPVOID font, string text)
 	}
 }
 
+int CalculateFrameRate()
+{
+	static float framesPerSecond = 0.0f;
+	static int fps;
+	static float lastTime = 0.0f;
+	float currentTime = GetTickCount() * 0.001f;
+	++framesPerSecond;
+	if (currentTime - lastTime > 1.0f)
+	{
+		lastTime = currentTime;
+		fps = (int)framesPerSecond;
+		framesPerSecond = 0;
+	}
+
+	return fps;
+}
+
 void convertXY(int w, int h, int x, int y, float& ox, float& oy)
 {
 	ox = (float)(x - (float)w / 2.0) * (float)(1.0 / (float)(w / 2.0));
@@ -142,6 +159,10 @@ GLvoid drawScene()
 	score += std::to_string((int)player.getPosition().z);
 	glutPrint(850.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, score);
 
+	string speed = "Speed : ";
+	speed += std::to_string((int)(player.getSpeed() * 100000));
+	glutPrint(0.0f, 0.0f, GLUT_BITMAP_HELVETICA_18, speed);
+
 	glutSwapBuffers(); // 화면에 출력하기
 }
 
@@ -184,6 +205,10 @@ GLvoid Timer(int Value)
 	m.BulletCollisionCheck(tmpList);
 	player.setBulletList(tmpList);
 
+	string str = "Turbo_Racing||      fps:";
+
+	glutSetWindowTitle((str + std::to_string(CalculateFrameRate())).c_str());
+
 	glutPostRedisplay();
 	glutTimerFunc(1, Timer, 0);
 }
@@ -200,7 +225,7 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // 디스플레이 모드 설정
 	glutInitWindowPosition(100, 100); // 윈도우의 위치 지정
 	glutInitWindowSize(width, height); // 윈도우의 크기 지정
-	glutCreateWindow("Example1"); // 윈도우 생성 (윈도우 이름)
+	glutCreateWindow("Turbo_Racing||      fps:"); // 윈도우 생성 (윈도우 이름)
 
 	//--- GLEW 초기화하기
 	glewExperimental = GL_TRUE;

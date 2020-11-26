@@ -78,5 +78,5 @@ public:
 	void Update(float pz);
 	void Render(GLuint ShaderProgram);
 	bool PlayerCollisionCheck(float pz, float pRotate);
-	bool BulletCollisionCheck(std::vector<Bullet>& bList);
+	void BulletCollisionCheck(std::vector<Bullet>& bList);
 };

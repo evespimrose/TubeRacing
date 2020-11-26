@@ -166,14 +166,15 @@ bool Map::PlayerCollisionCheck(float pz, float pRotate)
 	return false;
 }
 
-bool Map::BulletCollisionCheck(std::vector<Bullet>& bList)
+void Map::BulletCollisionCheck(std::vector<Bullet>& bList)
 {
 	std::vector<Bullet>::iterator iter = bList.begin();
 
-	for (; iter != bList.end(); ++iter)
+	for (; iter != bList.end();)
 	{
+		bool isCollision = 0;
 		std::vector<Cube>::iterator Citer = CubeList.begin();
-		for (; Citer != CubeList.end(); ++Citer)
+		for (; Citer != CubeList.end();)
 		{
 			float bz = iter->getzOffset();
 			float bRad = iter->getRotate();
@@ -182,13 +183,24 @@ bool Map::BulletCollisionCheck(std::vector<Bullet>& bList)
 			float cz = Citer->getzOffset();
 			if (bz > cz - 0.2f && bz < cz + 0.2f && bRad < cRad + 3.0f && bRad > cRad - 3.0f)
 			{
-				bList.erase(iter);
+				isCollision = 1;
 				CubeList.erase(Citer);
-				return true;
+				break;
+			}
+			else
+			{
+				Citer++;
 			}
 		}
+		if (isCollision)
+		{
+			iter = bList.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
 	}
-	return false;
 }
 
 void Map::Render(GLuint ShaderProgram)
