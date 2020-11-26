@@ -30,10 +30,14 @@ private:
 
 	std::chrono::system_clock::time_point PrevFireTime;
 
+	LARGE_INTEGER tSecond;
+	LARGE_INTEGER tTime;
+
+	float fDeltaTime;
+
 	float Speed;
 
 	float acc;
-	float dec;
 
 	glm::vec3 PosVec;
 
@@ -52,6 +56,8 @@ private:
 	GLuint BulletVAO;
 	GLuint BulletVBO[3];
 	GLuint BulletEBO;
+
+	int Life;
 
 	std::vector<Bullet> BulletList;
 
@@ -112,9 +118,17 @@ public:
 	void sKey_Input(int key, bool state);
 	void Render(GLuint ShaderProgram);
 	float getSpeed();
+	float getRotate();
+	bool collision();
 	void Fire();
+	std::vector<Bullet> getBulletList();
+	void setBulletList(std::vector<Bullet> tmpList);
 	void ManageBullet();
+	bool MinusLife();
+	int getLife();
 	
 	glm::vec3 getPosition();
 	Camera getCamera();
+
+	void Reset();
 };

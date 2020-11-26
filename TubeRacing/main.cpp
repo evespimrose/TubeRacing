@@ -8,6 +8,8 @@ const float length = 0.5;
 
 char* arr;
 
+int GameState = 0;
+
 GLuint vertexShader;
 GLuint fragmentShader;
 
@@ -19,6 +21,33 @@ Player player;
 Map m;
 
 float Rotate = 0;
+
+void glutPrint(float x, float y, LPVOID font, string text)
+{
+	glWindowPos2f(x, y);
+
+	for (int i = 0; i < text.size(); i++)
+	{
+		glutBitmapCharacter(font, text[i]);
+	}
+}
+
+int CalculateFrameRate()
+{
+	static float framesPerSecond = 0.0f;
+	static int fps;
+	static float lastTime = 0.0f;
+	float currentTime = GetTickCount() * 0.001f;
+	++framesPerSecond;
+	if (currentTime - lastTime > 1.0f)
+	{
+		lastTime = currentTime;
+		fps = (int)framesPerSecond;
+		framesPerSecond = 0;
+	}
+
+	return fps;
+}
 
 void convertXY(int w, int h, int x, int y, float& ox, float& oy)
 {
@@ -109,26 +138,91 @@ void InitShader()
 
 GLvoid drawScene()
 {
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if (GameState == 0)
+	{
+		glClearColor(0, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// 원근 투영
-	glUseProgram(ShaderProgram);
+		// 원근 투영
+		glUseProgram(ShaderProgram);
 
-	glm::vec3 lc = glm::vec3(0.5f, 0.5f, 0.5f);
+		glm::vec3 lc = glm::vec3(0.5f, 0.5f, 0.5f);
 
-	unsigned int LightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
-	glUniform3fv(LightColorLocation, 1, glm::value_ptr(lc));
+		unsigned int LightColorLocation = glGetUniformLocation(ShaderProgram, "lightColor");
+		glUniform3fv(LightColorLocation, 1, glm::value_ptr(lc));
 
-	glm::vec3 cp = player.getCamera().getPosition();
+		glm::vec3 cp = player.getCamera().getPosition();
 
-	unsigned int viewPosLocation = glGetUniformLocation(ShaderProgram, "viewPos");
-	glUniform3fv(viewPosLocation, 1, glm::value_ptr(cp));
+		unsigned int viewPosLocation = glGetUniformLocation(ShaderProgram, "viewPos");
+		glUniform3fv(viewPosLocation, 1, glm::value_ptr(cp));
 
-	m.Render(ShaderProgram);
-	player.Render(ShaderProgram);
+		m.Render(ShaderProgram);
+		player.Render(ShaderProgram);
 
-	glutSwapBuffers(); // 화면에 출력하기
+		string score = "Score : ";
+		score += std::to_string((int)player.getPosition().z);
+		glutPrint(850.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, score);
+
+		string speed = "Speed : ";
+		speed += std::to_string((int)(player.getSpeed() * 500)) + "km/h";
+		glutPrint(0.0f, 0.0f, GLUT_BITMAP_HELVETICA_18, speed);
+
+		string life = "Life : ";
+		life += std::to_string(player.getLife());
+		glutPrint(0.0f, 980.0f, GLUT_BITMAP_HELVETICA_18, life);
+
+		glutSwapBuffers();
+	}
+	else
+	{
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glutPrint(420.0f, 550.0f, GLUT_BITMAP_TIMES_ROMAN_24, "GAME OVER");
+		glutPrint(370.0f, 400.0f, GLUT_BITMAP_TIMES_ROMAN_24, "Press R to CONTINUE");
+
+		glutSwapBuffers();
+	}
+}
+GLvoid Timer(int Value)
+{
+	if (GameState == 1)
+	{
+		return;
+	}
+
+	float pz = player.getPosition().z;
+
+	m.Update(pz);
+	player.Update();
+	if(m.PlayerCollisionCheck(pz, player.getRotate()))
+	{
+		if (player.collision())
+		{
+			GameState = 1;
+			glutPostRedisplay();
+		}
+	}
+	std::vector<Bullet> tmpList = player.getBulletList();
+	m.BulletCollisionCheck(tmpList);
+	player.setBulletList(tmpList);
+
+	string str = "Turbo_Racing   fps:";
+
+	glutSetWindowTitle((str + std::to_string(CalculateFrameRate())).c_str());
+
+	glutPostRedisplay();
+	glutTimerFunc(1, Timer, 0);
+}
+
+
+void Reset()
+{
+	GameState = 0;
+	player.Reset();
+	m.Reset();
+
+	glutTimerFunc(1, Timer, 0);
 }
 
 GLvoid Keyboard(unsigned char key, int x, int y)
@@ -139,6 +233,19 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 	case 'Q':
 		exit(0);
 		break;
+	}
+
+	if (GameState == 1)
+	{
+		switch (key)
+		{
+		case 'R':
+			Reset();
+			break;
+		case 'r':
+			Reset();
+			break;
+		}
 	}
 }
 
@@ -156,16 +263,6 @@ GLvoid sKeyboardUp(int key, int x, int y)
 	player.sKey_Input(key, FALSE);
 }
 
-GLvoid Timer(int Value)
-{
-	float pz = player.getPosition().z;
-
-	m.Update(pz);
-	player.Update();
-
-	glutPostRedisplay();
-	glutTimerFunc(1, Timer, 0);
-}
 
 int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 {
@@ -179,7 +276,7 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // 디스플레이 모드 설정
 	glutInitWindowPosition(100, 100); // 윈도우의 위치 지정
 	glutInitWindowSize(width, height); // 윈도우의 크기 지정
-	glutCreateWindow("Example1"); // 윈도우 생성 (윈도우 이름)
+	glutCreateWindow("Turbo_Racing||      fps:"); // 윈도우 생성 (윈도우 이름)
 
 	//--- GLEW 초기화하기
 	glewExperimental = GL_TRUE;

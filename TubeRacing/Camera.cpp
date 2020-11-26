@@ -17,18 +17,6 @@ void Camera::setPosition(glm::vec3 p)
 	posz = p.z;
 }
 
-void Camera::setSpeed(float speed)
-{
-	float zoom = 0.0003f;
-	if (speed > 0.0f && posz < 10.0f)
-	{
-		posz += speed * zoom;
-		posy += speed * zoom * 0.5;
-	}
-
-	pSpeed = 0.0f;
-}
-
 glm::vec3 Camera::getPosition()
 {
 	return glm::vec3(posx, posy - 1.0f, posz - 3.0f);

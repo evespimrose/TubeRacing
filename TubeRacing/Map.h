@@ -2,6 +2,7 @@
 #include "Tube.h"
 #include "Cube.h"
 #include "Lighting.h"
+#include "Bullet.h"
 
 class Map
 {
@@ -76,4 +77,7 @@ public:
 	void Init();
 	void Update(float pz);
 	void Render(GLuint ShaderProgram);
+	bool PlayerCollisionCheck(float pz, float pRotate);
+	void BulletCollisionCheck(std::vector<Bullet>& bList);
+	void Reset();
 };

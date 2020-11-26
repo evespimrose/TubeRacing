@@ -1,13 +1,18 @@
 #include "Bullet.h"
 
-void Bullet::Init(glm::vec3 playerPos, GLuint vao, float PlayerSpeed)
+void Bullet::Init(glm::vec3 playerPos, GLuint vao, float PlayerSpeed, float rad)
 {
+	QueryPerformanceFrequency(&tSecond);
+	QueryPerformanceCounter(&tTime);
+	fDeltaTime = 0;
+
 	PosVec = playerPos;
 	PosVec.z += 0.5f;
 
 	PosMat = glm::mat4(1.0f);
 	PosMat = glm::translate(PosMat, PosVec);
 
+	rotate = rad;
 	Speed = PlayerSpeed + 0.3f;
 	VAO = vao;
 }
@@ -36,11 +41,23 @@ void Bullet::Render(GLuint ShaderProgram)
 
 void Bullet::Move()
 {
-	PosVec.z += Speed;
-	PosMat = glm::translate(PosMat, glm::vec3(0, 0, Speed));
+	LARGE_INTEGER time;
+	QueryPerformanceCounter(&time);
+	fDeltaTime = (time.QuadPart - tTime.QuadPart) / (float)tSecond.QuadPart;
+	tTime = time;
+
+	fDeltaTime *= 100;
+
+	PosVec.z += Speed * fDeltaTime;
+	PosMat = glm::translate(PosMat, glm::vec3(0, 0, Speed * fDeltaTime));
 }
 
 float Bullet::getzOffset()
 {
 	return PosVec.z;
+}
+
+float Bullet::getRotate()
+{
+	return rotate;
 }

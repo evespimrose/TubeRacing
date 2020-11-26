@@ -6,8 +6,6 @@ bool Player::loadOBJ(
 	std::vector<glm::vec2>& out_uvs,
 	std::vector<glm::vec3>& out_normals
 ) {
-	printf("Loading OBJ file %s...\n", path);
-
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	std::vector<glm::vec3> temp_vertices;
 	std::vector<glm::vec2> temp_uvs;
@@ -99,7 +97,13 @@ bool Player::loadOBJ(
 
 void Player::Init()
 {
+	Life = 3;
 	PrevFireTime = std::chrono::system_clock::now();
+
+	QueryPerformanceFrequency(&tSecond);
+	QueryPerformanceCounter(&tTime);
+	fDeltaTime = 0;
+
 	Left_keyDown = 0;
 	Right_keyDown = 0;
 
@@ -119,7 +123,6 @@ void Player::Init()
 	Speed = 0.0f;
 
 	acc = 0.00005f;
-	dec = 1.0f;
 
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
@@ -223,20 +226,27 @@ void Player::Move()
 
 void Player::Update()
 {
+	LARGE_INTEGER time;
+	QueryPerformanceCounter(&time);
+	fDeltaTime = (time.QuadPart - tTime.QuadPart) / (float)tSecond.QuadPart;
+	tTime = time;
+
+	fDeltaTime *= 100;
+
 	Move();
 	ManageBullet();
 	camera.setPosition(PosVec);
 	camera.setRotate(rad);
-	camera.setpSpeed(Speed);
+	camera.setpSpeed(Speed * fDeltaTime);
 	camera.setAT();
 
 	if (Speed < 1.5)
 	{
-		Speed += acc;
+		Speed += acc * fDeltaTime;
 	}
 
-	PosVec.z += Speed;
-	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed));
+	PosVec.z += Speed * fDeltaTime;
+	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed * fDeltaTime));
 }
 
 void Player::Key_Input(unsigned char key, bool state)
@@ -303,14 +313,14 @@ void Player::Render(GLuint ShaderProgram)
 
 void Player::Fire()
 {
-	std::chrono::milliseconds FireDelay(100);
+	std::chrono::milliseconds FireDelay(300);
 
 	std::chrono::duration<double> sec = std::chrono::system_clock::now() - PrevFireTime;
 	if (FireDelay < sec)
 	{
 		Bullet b;
 
-		b.Init(PosVec, BulletVAO, Speed);
+		b.Init(PosVec, BulletVAO, Speed, rad);
 		BulletList.push_back(b);
 
 		PrevFireTime = std::chrono::system_clock::now();
@@ -329,7 +339,7 @@ void Player::ManageBullet()
 	for (; iter != BulletList.end();)
 	{
 		iter->Move();
-		if (iter->getzOffset() > PosVec.z + 400.0f)
+		if (iter->getzOffset() > PosVec.z + 50.0f)
 		{
 			iter = BulletList.erase(iter);
 		}
@@ -343,6 +353,59 @@ void Player::ManageBullet()
 float Player::getSpeed()
 {
 	return Speed;
+}
+
+float Player::getRotate()
+{
+	return rad;
+}
+
+bool Player::collision()
+{
+	Speed /= 2;
+	if (MinusLife())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+std::vector<Bullet> Player::getBulletList()
+{
+	return BulletList;
+}
+
+bool Player::MinusLife()
+{
+	if (Life > 1)
+	{
+		Life--;
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+int Player::getLife()
+{
+	return Life;
+}
+
+void Player::Reset()
+{
+	BulletList.clear();
+	Init();
+}
+
+void Player::setBulletList(std::vector<Bullet> tmpList)
+{
+	BulletList.clear();
+	BulletList = tmpList;
 }
 
 glm::vec3 Player::getPosition()

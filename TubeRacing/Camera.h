@@ -18,7 +18,6 @@ private:
 public:
 	void Render(GLuint ShaderProgram);
 	void setpSpeed(float s);
-	void setSpeed(float speed);
 	void setRotate(float r);
 	void setPosition(glm::vec3 p);
 	void setAT();

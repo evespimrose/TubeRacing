@@ -9,7 +9,7 @@ void Map::Init()
 
 	loadOBJ("Tube.obj", vertices, uvs, normals);
 
-	CubeCounter = 15;
+	CubeCounter = 1;
 
 	for (int i = 0; i < vertices.size(); ++i)
 	{
@@ -144,10 +144,75 @@ void Map::Update(float pz)
 		}
 		else if (CubeCounter == 0)
 		{
-			CubeCounter = 25 * pz / 5000.0f;
+ 			CubeCounter = 1 + pz / 1000;
+			if (CubeCounter > 10)
+			{
+				CubeCounter = 10;
+			}
 			break;
 		}
 	}
+}
+
+bool Map::PlayerCollisionCheck(float pz, float pRotate)
+{
+	std::vector<Cube>::iterator Citer = CubeList.begin();
+	for (; Citer != CubeList.end(); ++Citer)
+	{
+		float cz = Citer->getzOffset();
+		float cRotate = Citer->getRotate();
+		if (cz < pz + 0.5f && cz > pz - 0.5f && cRotate > pRotate - 10 && cRotate < pRotate + 10)
+		{
+			CubeList.erase(Citer);
+			return true;
+		}
+	}
+	return false;
+}
+
+void Map::BulletCollisionCheck(std::vector<Bullet>& bList)
+{
+	std::vector<Bullet>::iterator iter = bList.begin();
+
+	for (; iter != bList.end();)
+	{
+		bool isCollision = 0;
+		std::vector<Cube>::iterator Citer = CubeList.begin();
+		for (; Citer != CubeList.end();)
+		{
+			float bz = iter->getzOffset();
+			float bRad = iter->getRotate();
+			float cRad = Citer->getRotate();
+
+			float cz = Citer->getzOffset();
+			if (bz > cz - 0.2f && bz < cz + 0.2f && bRad < cRad + 3.0f && bRad > cRad - 3.0f)
+			{
+				isCollision = 1;
+				CubeList.erase(Citer);
+				break;
+			}
+			else
+			{
+				Citer++;
+			}
+		}
+		if (isCollision)
+		{
+			iter = bList.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+}
+
+void Map::Reset()
+{
+	CubeList.clear();
+	TubeList.clear();
+	LightingList.clear();
+	Init();
 }
 
 void Map::Render(GLuint ShaderProgram)
