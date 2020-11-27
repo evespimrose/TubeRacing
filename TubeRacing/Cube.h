@@ -5,9 +5,11 @@
 class Cube
 {
 private:
-	GLuint VAO;
+	GLuint VAO[3];
 	float zOffset;
 	float rotate;
+
+	int Life;
 
 	float specular = 0.8f;
 	float diffuse = 0.2f;
@@ -18,8 +20,10 @@ private:
 	glm::vec3 PosVec;
 
 public:
-	void Init(float Offset, GLuint vao);
+	void Init(float Offset, GLuint* vao);
 	void Render(GLuint ShaderProgram);
+	int getLife();
+	void MinusLife();
 	float getzOffset();
 	float getRotate();
 };

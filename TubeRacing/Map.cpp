@@ -45,30 +45,33 @@ void Map::Init()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
 
-	glGenVertexArrays(1, &CubeVAO);
-	glBindVertexArray(CubeVAO);
-	glGenBuffers(3, CubeVBO);
-	glGenBuffers(1, &CubeEBO);
+	for (int i = 0; i < 3; ++i)
+	{
+		glGenVertexArrays(1, &CubeVAO[i]);
+		glBindVertexArray(CubeVAO[i]);
+		glGenBuffers(3, CubeVBO);
+		glGenBuffers(1, &CubeEBO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, CubeVBO[0]);
-	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(GLfloat), cube, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, CubeVBO[0]);
+		glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(GLfloat), cube, GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, CubeVBO[1]);
-	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(GLfloat), cubeColor, GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, CubeVBO[1]);
+		glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(GLfloat), cubeColor[i], GL_STATIC_DRAW);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(1);
 
-	glBindBuffer(GL_ARRAY_BUFFER, CubeVBO[2]);
-	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(GLfloat), cubeNormal, GL_STATIC_DRAW);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(2);
+		glBindBuffer(GL_ARRAY_BUFFER, CubeVBO[2]);
+		glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(GLfloat), cubeNormal, GL_STATIC_DRAW);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(2);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, CubeEBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 36 * sizeof(GLuint), cubeIndices, GL_STATIC_DRAW);
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(3);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, CubeEBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 36 * sizeof(GLuint), cubeIndices, GL_STATIC_DRAW);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(3);
+	}
 
 	Tube t[20];
 
@@ -188,7 +191,17 @@ void Map::BulletCollisionCheck(std::vector<Bullet>& bList)
 			if (bz > cz - 0.2f && bz < cz + 0.2f && bRad < cRad + 3.0f && bRad > cRad - 3.0f)
 			{
 				isCollision = 1;
-				CubeList.erase(Citer);
+
+				Citer->MinusLife();
+				if (Citer->getLife() < 0)
+				{
+					Citer = CubeList.erase(Citer);
+				}
+				else
+				{
+					Citer++;
+				}
+
 				break;
 			}
 			else
