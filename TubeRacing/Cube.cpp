@@ -1,9 +1,15 @@
 #include "Cube.h"
 
 
-void Cube::Init(float Offset, GLuint vao)
+void Cube::Init(float Offset, GLuint* vao)
 {
-	VAO = vao;
+	for (int i = 0; i < 3; ++i)
+	{
+		VAO[i] = vao[i];
+	}
+
+	Life = rand() % 3;
+
 	zOffset = Offset;
 	PosVec = glm::vec3(0.0f, -3.5f, zOffset);
 
@@ -33,8 +39,21 @@ void Cube::Render(GLuint ShaderProgram)
 
 
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, &TR[0][0]);
-	glBindVertexArray(VAO);
+	glBindVertexArray(VAO[Life]);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+}
+
+int Cube::getLife()
+{
+	return Life;
+}
+
+void Cube::MinusLife()
+{
+	if (Life < 2)
+	{
+		Life--;
+	}
 }
 
 float Cube::getzOffset()
