@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\kcjse\Desktop\컴그 과제\TubeRacing\TubeRacing\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\kcjse\Desktop\컴그 과제\TubeRacing\TubeRacing\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\JHT\Documents\TubeRacing\TubeRacing\inc;C:\Users\kcjse\Desktop\컴그 과제\TubeRacing\TubeRacing\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\JHT\Documents\TubeRacing\TubeRacing\lib;C:\Users\kcjse\Desktop\컴그 과제\TubeRacing\TubeRacing\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
