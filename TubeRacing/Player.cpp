@@ -233,6 +233,15 @@ void Player::Update()
 
 	fDeltaTime *= 100;
 
+	if (Speed < 1.5)
+	{
+		Speed += acc * fDeltaTime;
+	}
+
+	PosVec.z += Speed * fDeltaTime;
+
+	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed * fDeltaTime));
+
 	Move();
 	ManageBullet();
 	camera.setPosition(PosVec);
@@ -240,13 +249,6 @@ void Player::Update()
 	camera.setpSpeed(Speed * fDeltaTime);
 	camera.setAT();
 
-	if (Speed < 1.5)
-	{
-		Speed += acc * fDeltaTime;
-	}
-
-	PosVec.z += Speed * fDeltaTime;
-	PosMat = glm::translate(PosMat, glm::vec3(0.0f, 0.0f, Speed * fDeltaTime));
 }
 
 void Player::Key_Input(unsigned char key, bool state)
