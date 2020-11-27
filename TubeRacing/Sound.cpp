@@ -12,39 +12,25 @@ SoundManager* SoundManager::sharedManager()
 void SoundManager::init()
 {
 	r = System_Create(&pFmod);
-	ErrorCheck(r);
 	r = pFmod->init(100, FMOD_INIT_NORMAL, NULL);
-	ErrorCheck(r);
 }
 
 void SoundManager::loading()
 {
 	r = pFmod->createSound("sound/sound01.mp3", FMOD_LOOP_NORMAL, NULL, &music[BACKGROUND_SOUND]);
-	ErrorCheck(r);
-	r = pFmod->createSound("sound/sound02.mp3", FMOD_DEFAULT, NULL, &music[DRIVE_SOUND]);
-	ErrorCheck(r);
+	r = pFmod->createSound("sound/sound02.mp3", FMOD_LOOP_NORMAL, NULL, &music[DRIVE_SOUND]);
 	r = pFmod->createSound("sound/sound03.mp3", FMOD_DEFAULT, NULL, &music[ATTACK_SOUND]);
-	ErrorCheck(r);
+	r = pFmod->createSound("sound/sound04.mp3", FMOD_DEFAULT, NULL, &music[OVER_SOUND]);
+	r = pFmod->createSound("sound/sound05.mp3", FMOD_DEFAULT, NULL, &music[CRUSH_SOUND]);
 }
 
 void SoundManager::play(int _type)
 {
 	pFmod->update();
 	r = pFmod->playSound(music[_type],NULL, false, &ch[_type]);
-	ErrorCheck(r);
 }
 
 void SoundManager::stop(int _cNum)
 {
 	ch[_cNum]->stop();
-}
-
-void SoundManager::ErrorCheck(FMOD_RESULT _r)
-{
-	if (r != FMOD_OK)
-	{
-		TCHAR szStr[256] = { 0 };
-		MultiByteToWideChar(CP_ACP, NULL, FMOD_ErrorString(r), -1, szStr, 256);
-		MessageBox(NULL, szStr, L"SoundError", MB_OK);
-	}
 }

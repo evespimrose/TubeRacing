@@ -300,5 +300,6 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glutDisplayFunc(drawScene);
 	SoundManager::sharedManager()->init();
 	SoundManager::sharedManager()->loading();
+	SoundManager::sharedManager()->play(BACKGROUND_SOUND);
 	glutMainLoop();
 }

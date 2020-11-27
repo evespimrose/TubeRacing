@@ -22,8 +22,6 @@ public:
 	void loading();
 	void play(int _type);
 	void stop(int _cNum);
-	void ErrorCheck(FMOD_RESULT _r);
-
 private:
 	System* pFmod;
 	Channel* ch[10];
