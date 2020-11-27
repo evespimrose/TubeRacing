@@ -197,6 +197,7 @@ GLvoid Timer(int Value)
 	player.Update();
 	if(m.PlayerCollisionCheck(pz, player.getRotate()))
 	{
+		SoundManager::sharedManager()->play(CRUSH_SOUND);
 		if (player.collision())
 		{
 			GameState = 1;
@@ -232,6 +233,10 @@ void BGM()
 	if (GameState == 0)
 	{
 		SoundManager::sharedManager()->play(BACKGROUND_SOUND);
+	}
+	else if (GameState == 1)
+	{
+		SoundManager::sharedManager()->stop(BACKGROUND_SOUND);
 	}
 }
 
@@ -309,5 +314,6 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glutSpecialFunc(sKeyboard);
 	glutSpecialUpFunc(sKeyboardUp);
 	glutDisplayFunc(drawScene);
+	BGM();
 	glutMainLoop();
 }
