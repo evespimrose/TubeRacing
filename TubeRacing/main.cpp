@@ -225,6 +225,16 @@ void Reset()
 	glutTimerFunc(1, Timer, 0);
 }
 
+void BGM()
+{
+	SoundManager::sharedManager()->init();
+	SoundManager::sharedManager()->loading();
+	if (GameState == 0)
+	{
+		SoundManager::sharedManager()->play(BACKGROUND_SOUND);
+	}
+}
+
 GLvoid Keyboard(unsigned char key, int x, int y)
 {
 	player.Key_Input(key, TRUE);
@@ -264,6 +274,7 @@ GLvoid sKeyboardUp(int key, int x, int y)
 }
 
 
+
 int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 {
 	srand((unsigned int)time(NULL));
@@ -298,8 +309,5 @@ int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glutSpecialFunc(sKeyboard);
 	glutSpecialUpFunc(sKeyboardUp);
 	glutDisplayFunc(drawScene);
-	SoundManager::sharedManager()->init();
-	SoundManager::sharedManager()->loading();
-	SoundManager::sharedManager()->play(BACKGROUND_SOUND);
 	glutMainLoop();
 }
