@@ -1,5 +1,6 @@
 #pragma once
 #include "framework.h"
+#include "sound.h"
 
 class Bullet
 {

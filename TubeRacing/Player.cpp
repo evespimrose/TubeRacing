@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "sound.h"
 
 bool Player::loadOBJ(
 	const char* path,
@@ -256,7 +257,10 @@ void Player::Key_Input(unsigned char key, bool state)
 	if (key == ' ')
 	{
 		if (state)
+		{
 			Space_keyDown = 1;
+			SoundManager::sharedManager()->play(ATTACK_SOUND);
+		}
 
 		else
 			Space_keyDown = 0;
@@ -267,7 +271,7 @@ void Player::sKey_Input(int key, bool state)
 {
 	if (key == GLUT_KEY_RIGHT)
 	{
-		if(state)
+		if (state)
 			Right_keyDown = 1;
 
 		else
