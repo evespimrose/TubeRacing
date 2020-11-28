@@ -188,6 +188,8 @@ GLvoid Timer(int Value)
 {
 	if (GameState == 1)
 	{
+		SoundManager::sharedManager()->play(OVER_SOUND);
+		SoundManager::sharedManager()->stop(BACKGROUND_SOUND);
 		return;
 	}
 
@@ -198,6 +200,7 @@ GLvoid Timer(int Value)
 	if(m.PlayerCollisionCheck(pz, player.getRotate()))
 	{
 		SoundManager::sharedManager()->play(CRUSH_SOUND);
+
 		if (player.collision())
 		{
 			GameState = 1;
@@ -216,16 +219,6 @@ GLvoid Timer(int Value)
 	glutTimerFunc(1, Timer, 0);
 }
 
-
-void Reset()
-{
-	GameState = 0;
-	player.Reset();
-	m.Reset();
-
-	glutTimerFunc(1, Timer, 0);
-}
-
 void BGM()
 {
 	SoundManager::sharedManager()->init();
@@ -234,10 +227,16 @@ void BGM()
 	{
 		SoundManager::sharedManager()->play(BACKGROUND_SOUND);
 	}
-	else if (GameState == 1)
-	{
-		SoundManager::sharedManager()->stop(BACKGROUND_SOUND);
-	}
+}
+
+void Reset()
+{
+	GameState = 0;
+	player.Reset();
+	m.Reset();
+	BGM();
+
+	glutTimerFunc(1, Timer, 0);
 }
 
 GLvoid Keyboard(unsigned char key, int x, int y)
