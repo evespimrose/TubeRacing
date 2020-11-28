@@ -259,7 +259,6 @@ void Player::Key_Input(unsigned char key, bool state)
 		if (state)
 		{
 			Space_keyDown = 1;
-			SoundManager::sharedManager()->play(ATTACK_SOUND);
 		}
 
 		else
@@ -330,7 +329,10 @@ void Player::Fire()
 		BulletList.push_back(b);
 
 		PrevFireTime = std::chrono::system_clock::now();
+
+		SoundManager::sharedManager()->play(ATTACK_SOUND);
 	}
+
 }
 
 void Player::ManageBullet()
