@@ -94,7 +94,7 @@ void make_vertexShaders()
 	if (!result)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, errorLog);
-		cerr << "ERROR: vertex shader ÄÄÆÄÀÏ ½ÇÆÐ\n" << errorLog << endl;
+		cerr << "ERROR: vertex shader ì»´íŒŒì¼ ì‹¤íŒ¨\n" << errorLog << endl;
 		return;
 	}
 }
@@ -115,7 +115,7 @@ void make_fragmentShaders()
 	if (!result)
 	{
 		glGetShaderInfoLog(fragmentShader, 512, NULL, errorLog);
-		cerr << "ERROR: fragment shader ÄÄÆÄÀÏ ½ÇÆÐ\n" << errorLog << endl;
+		cerr << "ERROR: fragment shader ì»´íŒŒì¼ ì‹¤íŒ¨\n" << errorLog << endl;
 		return;
 	}
 }
@@ -143,7 +143,7 @@ GLvoid drawScene()
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// ¿ø±Ù Åõ¿µ
+		// ì›ê·¼ íˆ¬ì˜
 		glUseProgram(ShaderProgram);
 
 		glm::vec3 lc = glm::vec3(0.5f, 0.5f, 0.5f);
@@ -279,21 +279,21 @@ GLvoid sKeyboardUp(int key, int x, int y)
 
 
 
-int main(int argc, char** argv) //--- À©µµ¿ì Ãâ·ÂÇÏ°í ÄÝ¹éÇÔ¼ö ¼³Á¤
+int main(int argc, char** argv) //--- ìœˆë„ìš° ì¶œë ¥í•˜ê³  ì½œë°±í•¨ìˆ˜ ì„¤ì •
 {
 	srand((unsigned int)time(NULL));
 
 	GLint width = 1000;
 	GLint height = 1000;
 
-	//--- À©µµ¿ì »ý¼ºÇÏ±â
-	glutInit(&argc, argv);// glut ÃÊ±âÈ­
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // µð½ºÇÃ·¹ÀÌ ¸ðµå ¼³Á¤
-	glutInitWindowPosition(100, 100); // À©µµ¿ìÀÇ À§Ä¡ ÁöÁ¤
-	glutInitWindowSize(width, height); // À©µµ¿ìÀÇ Å©±â ÁöÁ¤
-	glutCreateWindow("Turbo_Racing||      fps:"); // À©µµ¿ì »ý¼º (À©µµ¿ì ÀÌ¸§)
+	//--- ìœˆë„ìš° ìƒì„±í•˜ê¸°
+	glutInit(&argc, argv);// glut ì´ˆê¸°í™”
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // ë””ìŠ¤í”Œë ˆì´ ëª¨ë“œ ì„¤ì •
+	glutInitWindowPosition(100, 100); // ìœˆë„ìš°ì˜ ìœ„ì¹˜ ì§€ì •
+	glutInitWindowSize(width, height); // ìœˆë„ìš°ì˜ í¬ê¸° ì§€ì •
+	glutCreateWindow("Turbo_Racing||      fps:"); // ìœˆë„ìš° ìƒì„± (ìœˆë„ìš° ì´ë¦„)
 
-	//--- GLEW ÃÊ±âÈ­ÇÏ±â
+	//--- GLEW ì´ˆê¸°í™”í•˜ê¸°
 	glewExperimental = GL_TRUE;
 
 	glEnable(GL_DEPTH_TEST);
@@ -313,6 +313,8 @@ int main(int argc, char** argv) //--- À©µµ¿ì Ãâ·ÂÇÏ°í ÄÝ¹éÇÔ¼ö ¼³Á¤
 	glutSpecialFunc(sKeyboard);
 	glutSpecialUpFunc(sKeyboardUp);
 	glutDisplayFunc(drawScene);
+  
 	BGM();
+  
 	glutMainLoop();
 }
