@@ -12,7 +12,7 @@ void SoundManager::init()
 {
 	r = System_Create(&pFmod);
 	r = pFmod->init(100, FMOD_INIT_NORMAL, NULL);
-}
+} 
 
 void SoundManager::loading()
 {
