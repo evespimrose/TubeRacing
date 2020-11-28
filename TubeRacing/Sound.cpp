@@ -20,7 +20,7 @@ void SoundManager::loading()
 	r = pFmod->createSound("sound/sound02.mp3", FMOD_LOOP_NORMAL, NULL, &music[DRIVE_SOUND]);
 	r = pFmod->createSound("sound/sound03.mp3", FMOD_DEFAULT, NULL, &music[ATTACK_SOUND]);
 	r = pFmod->createSound("sound/sound04.mp3", FMOD_DEFAULT, NULL, &music[OVER_SOUND]);
-	r = pFmod->createSound("sound/sound05.mp3", FMOD_DEFAULT, NULL, &music[CRUSH_SOUND]);
+	r = pFmod->createSound("sound/sound05.wav", FMOD_DEFAULT, NULL, &music[CRUSH_SOUND]);
 }
 
 void SoundManager::play(int _type)

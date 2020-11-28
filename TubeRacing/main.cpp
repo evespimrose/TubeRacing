@@ -94,7 +94,7 @@ void make_vertexShaders()
 	if (!result)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, errorLog);
-		cerr << "ERROR: vertex shader 컴파일 실패\n" << errorLog << endl;
+		cerr << "ERROR: vertex shader 컴파???�패\n" << errorLog << endl;
 		return;
 	}
 }
@@ -115,7 +115,7 @@ void make_fragmentShaders()
 	if (!result)
 	{
 		glGetShaderInfoLog(fragmentShader, 512, NULL, errorLog);
-		cerr << "ERROR: fragment shader 컴파일 실패\n" << errorLog << endl;
+		cerr << "ERROR: fragment shader 컴파???�패\n" << errorLog << endl;
 		return;
 	}
 }
@@ -143,7 +143,6 @@ GLvoid drawScene()
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// 원근 투영
 		glUseProgram(ShaderProgram);
 
 		glm::vec3 lc = glm::vec3(0.5f, 0.5f, 0.5f);
@@ -279,21 +278,20 @@ GLvoid sKeyboardUp(int key, int x, int y)
 
 
 
-int main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
+int main(int argc, char** argv)
 {
 	srand((unsigned int)time(NULL));
 
 	GLint width = 1000;
 	GLint height = 1000;
 
-	//--- 윈도우 생성하기
-	glutInit(&argc, argv);// glut 초기화
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // 디스플레이 모드 설정
-	glutInitWindowPosition(100, 100); // 윈도우의 위치 지정
-	glutInitWindowSize(width, height); // 윈도우의 크기 지정
-	glutCreateWindow("Turbo_Racing||      fps:"); // 윈도우 생성 (윈도우 이름)
 
-	//--- GLEW 초기화하기
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+	glutInitWindowPosition(100, 100);
+	glutInitWindowSize(width, height);
+	glutCreateWindow("Turbo_Racing||      fps:");
+
 	glewExperimental = GL_TRUE;
 
 	glEnable(GL_DEPTH_TEST);
